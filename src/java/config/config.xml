@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    
+    <category label="Banco de Dadods">
+    
+        <category label="Docker">
+            
+            <item label="Drive"
+                  property="docker.db.drive"
+                  type="string"/>
+            
+            <item label="Url"
+                  property="docker.db.url"
+                  type="string"/>
+            
+            <item label="Usuário"
+                  property="docker.db.user"
+                  type="string"/>
+
+            <item label="Senha"
+                  property="docker.db.pwd"
+                  type="encrypt"/>
+            
+        </category>
+    
+        <category label="Virtual Machine">
+            
+            <item label="Drive"
+                    property="vm.db.drive"
+                    type="string"/>
+            
+            <item label="Url"
+                  property="vm.db.url"
+                  type="string"/>
+            
+            <item label="Usuário"
+                  property="vm.db.user"
+                  type="string"/>
+
+            <item label="Senha"
+                  property="vm.db.pwd"
+                  type="encrypt"/>
+            
+        </category>
+
+    </category>
+    
+</configuration>

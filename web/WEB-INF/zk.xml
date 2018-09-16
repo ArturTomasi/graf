@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+    <desktop-config>
+        <theme-uri>/inc/css/default.css</theme-uri>
+    </desktop-config>
+    
+    <client-config>   
+        <data-handler>
+            <name>mask</name><!-- the attribute name, i.e. data-mask -->
+            <script src="~./js/jquery.mask.min.js" /> 
+            <script>
+            function (wgt, dataValue) {
+                $(wgt.$n()).mask(dataValue);
+
+                // unformat after onChange event.
+                wgt.listen({onChange: function (event) {
+                    event.data.value = $(this.$n()).cleanVal();
+                }});
+            }
+            </script>
+        </data-handler>
+    </client-config>
+    
+<!--    <listener>
+        <listener-class>com.me.eng.core.ui.apps.listeners.WebAppInit</listener-class>
+    </listener>
+    
+    <listener>
+        <listener-class>com.me.eng.core.ui.apps.listeners.SessionCleanup</listener-class>
+    </listener>-->
+    
+    <session-config>
+        <device-type>ajax</device-type>    
+         <timeout-message>Session timeout. Please reload.</timeout-message>  
+    </session-config>
+</zk>
