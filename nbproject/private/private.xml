@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/artur/Projects/Graf/src/java/config/config.xml</file>
+            <file>file:/home/artur/Projects/Graf/src/java/schema/install.sql</file>
             <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/views/DockerApplicationView.java</file>
+            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/data/StatmentData.java</file>
             <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/panes/PortletPanel.java</file>
             <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/db/Database.java</file>
             <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/parts/PortletInfo.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/db/Base.java</file>
-            <file>file:/home/artur/Projects/Graf/web/WEB-INF/config.properties</file>
-            <file>file:/home/artur/Projects/Graf/web/META-INF/context.xml</file>
+            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/panes/StatmentPane.java</file>
         </group>
     </open-files>
 </project-private>

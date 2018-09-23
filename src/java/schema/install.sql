@@ -50,9 +50,15 @@ insert into core_roles ( id, role, name ) values ( 2, 'operator', 'Operador' );
 insert into core_users ( id, login, password, name, profile ) values ( -1, 'tomcat', '21232f297a57a5a743894a0e4a801fc3', 'Tomcat Administrator', 1 );
 insert into core_users ( id, login, password, name, profile ) values ( 1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Administrador do Sistema', 1 );
 
+insert into core_users ( id, login, password, name, profile ) values ( 2, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Gerson', 1 );
+
 insert into core_user_roles values ( -1, -1 );
 insert into core_user_roles values ( -1, -2 );
-insert into core_user_roles values ( 1, 1 );
 
+insert into core_user_roles values ( 1, 1 );
 insert into core_user_roles values ( 1, -1 );
 insert into core_user_roles values ( 1, -2 );
+
+insert into core_user_roles values ( 2, 1 );
+insert into core_user_roles values ( 2, -1 );
+insert into core_user_roles values ( 2, -2 );
