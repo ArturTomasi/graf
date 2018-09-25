@@ -29,11 +29,15 @@
 
 package com.me.eng.core.ui.panes;
 
+import com.me.eng.core.application.ResourceLocator;
 import com.me.eng.core.data.StatmentData;
+import com.me.eng.core.ui.apps.Action;
 import com.me.eng.core.ui.parts.TableLayout;
 import com.me.eng.core.ui.selectors.Combobox;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
@@ -81,33 +85,50 @@ public class StatmentPane
     }
     
     /**
+     * doStatment
+     * 
+     * @param e Event
+     */
+    private void doStatment( Event e )
+    {
+        
+    }
+    
+    
+    /**
      * initComponents
      * 
      */
     private void initComponents()
     {
-        setStyle( "padding: 5px; width: 650px" );
+        setStyle( "padding: 5px; width: 100%" );
         
         typeField.setWidth( "250px" );
         typeField.setElements( StatmentData.Type.values() );
         typeField.setSelectedElement( StatmentData.Type.QUERY );
         
         sqlField.setWidth( "100%" );
-        sqlField.setRows( 7 );
+        sqlField.setRows( 4 );
+        
+        fireAction.setStyle( "width: 50px; cursor: pointer;" );
         
         quantidadeBox.setVisible( false );
         quantidadeLabel.setVisible( false );
                 
-        setWidths( "250px", "100px", "100px", "100px", "100px" );
         
-        addRow( typeField, userLabel, userBox, quantidadeLabel, quantidadeBox );
-        addRow( sqlField );
+        addRow( typeLabel, typeField, sqlField, fireAction );
+        addRow( quantidadeLabel, quantidadeBox );
+        addRow( userLabel, userBox );
         
-        setColspan( 1, 0, 5 );
+        setWidths( "100px", "100px", "100%" );
+        setRowspan( 0, 2, 4 );
+        setRowspan( 0, 3, 4 );
         
         typeField.addEventListener( Events.ON_SELECT, this::onSelect );
-    }
+        fireAction.addEventListener( Events.ON_CLICK, this::doStatment );
+    }   
 
+    private Label typeLabel         = new Label("Tipo: ");
     private Label userLabel         = new Label("Usuários: ");
     private Label quantidadeLabel   = new Label("Quantidade: ");
     
@@ -115,4 +136,6 @@ public class StatmentPane
     private Intbox userBox          = new Intbox( 1 );
     private Intbox quantidadeBox    = new Intbox( 1 );
     private Combobox<StatmentData.Type> typeField    = new Combobox();
+    
+    private Image fireAction = new Image( ResourceLocator.getImageResource( "core/tb_play.png" ) );
 }

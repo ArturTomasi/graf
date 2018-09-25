@@ -80,6 +80,13 @@ public class TableLayout
         td.setDynamicProperty( "colspan", colspan );
     }
     
+    public void setRowspan( int row, int col, int rowspan )
+    {
+        Tr tr = (Tr) getChildren().get( row );
+        Td td = (Td) tr.getChildren().get( col );
+        td.setDynamicProperty( "rowspan", rowspan );
+    }
+    
     /**
      * addRow
      * 

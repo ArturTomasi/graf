@@ -95,10 +95,16 @@ body, html
     background-position-x: 7px;
 }
 
+.default-app-pane-south table,
+.default-app-pane-south span
+{
+    bottom: 10px !important;
+}
+
 .default-app-pane-south
 {
-    background-image: url('../../img/core/background.jpg');
-    background-position: -350px;
+    background: #000;
+    height: 40px !important;
 }
 
 .default-app-window .z-window-content,
@@ -117,8 +123,9 @@ body, html
 
 .default-app-pane-north
 {
-    background-image: url('../../img/core/background.jpg');
-    background-position: -350px;
+    /*background-image: url('../../img/core/background.jpg');*/
+    /*background-position: -350px;*/
+    background-color: #000;
 }
 
 .default-app-view-button
@@ -521,15 +528,25 @@ body, html
 }
 
 .z-west-header,
+.z-north-header,
+.z-east-header,
 .z-center-header
 {
-    color: rgb(48, 67, 105);
+    color: #000;
     text-align: center;
     line-height: 28px;
     font-family: Arial,sans-serif;
     font-size: 18px;
     background: #fff !important;
-    border-bottom: 1px solid rgb(48, 67, 105);
+    border-bottom: 1px solid #000;
+}
+
+.z-center,
+.z-north,
+.z-east,
+.z-west
+{
+    border: 1px solid #000;
 }
 
 .z-combobox-input[readonly]

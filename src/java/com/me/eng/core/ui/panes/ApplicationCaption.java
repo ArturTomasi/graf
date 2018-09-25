@@ -59,16 +59,16 @@ public class ApplicationCaption
         companyLogo.setStyle( "position: absolute; right: 10px; top: 10px" );
         
         Image meLogo = new Image( ResourceLocator.getImageResource( "core/me_logo.png" ) );
-        meLogo.setHeight( "50px" );
+        meLogo.setStyle( "height: 50px; filter: brightness(0) invert(1);" );
         
-        Label meLabel = new Label( "Master Engine" );
+        Label meLabel = new Label( "Univates" );
         meLabel.setStyle( "color: white; font-size: 30px" );
         
         Hbox hlayout = new Hbox();
         hlayout.setAlign( "middle" );
         hlayout.setSpacing( "10px" );
         hlayout.appendChild( meLogo );
-        hlayout.appendChild( meLabel );
+//        hlayout.appendChild( meLabel );
         hlayout.setStyle( "position: absolute; left: 10px; top: 10px;" );
         
         appendChild( hlayout );

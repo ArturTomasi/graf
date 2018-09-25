@@ -51,7 +51,7 @@ public class AdministratorApplicationUI
      */
     public AdministratorApplicationUI() 
     {
-        addView( new DockerApplicationView() );
+//        addView( new DockerApplicationView() );
         addView( new VMApplicationView() );
     }
 }

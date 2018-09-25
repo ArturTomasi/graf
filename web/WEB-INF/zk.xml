@@ -31,6 +31,9 @@
     
     <session-config>
         <device-type>ajax</device-type>    
-         <timeout-message>Session timeout. Please reload.</timeout-message>  
+        <timeout-message>Session timeout. Please reload.</timeout-message>  
+        <session-timeout>1800</session-timeout>
+        <max-desktops-per-session>-1</max-desktops-per-session>
+        <max-requests-per-session>-5</max-requests-per-session>
     </session-config>
 </zk>

@@ -41,7 +41,9 @@ import org.zkoss.zkmax.zul.Portalchildren;
 import org.zkoss.zkmax.zul.Portallayout;
 import org.zkoss.zul.Borderlayout;
 import org.zkoss.zul.Center;
+import org.zkoss.zul.East;
 import org.zkoss.zul.North;
+import org.zkoss.zul.West;
 
 /**
  *
@@ -59,7 +61,7 @@ public class VMApplicationView
     {
         setLabel( "Virtual Machine" );
         setIcon( "core/sb_vm.png" );
-        addAction( "Virtual Machine", insertAction, confAction, testAction );
+//        addAction( "Virtual Machine", insertAction, confAction, testAction );
     }
 
     /**
@@ -176,23 +178,23 @@ public class VMApplicationView
         setVflex( "true" );
         setHflex( "true" );
         
-        pane.setVflex( "true" );
-        pane.setHflex( "true" );
-     
-        Portalchildren pc = new Portalchildren();
-        pc.appendChild( new PortletPanel( new PortletInfo( "Gráfico", 
-                                                           "https://snapshot.raintank.io/dashboard-solo/snapshot/DZAp7H0f3woFUSljYzvNsq4ithnxArdQ?orgId=2&panelId=9&from=1537455541406&to=1537477141406",
-                                                           "https://snapshot.raintank.io/dashboard-solo/snapshot/DZAp7H0f3woFUSljYzvNsq4ithnxArdQ?orgId=2&panelId=9&from=1537455541406&to=1537477141406",
-                                                           PortletInfo.PortletType.IFRAME, "yes", "500px" ) ) );
+        North north = new North() ;
+        north.setTitle( "Configuração" );
+        north.appendChild( statmentPane );
+        
+        East east = new East() ;
+        east.setWidth( "50%" );
+        east.setTitle( "Docker" );
+        
+        West west = new West() ;
+        west.setWidth( "50%" );
+        west.setTitle( "Virtual Machine" );
+        
+        borderlayout.appendChild( north );
+        borderlayout.appendChild( west );
+        borderlayout.appendChild( east );
         
         
-        pane.appendChild( pc );
-        pane.setMaximizedMode( "whole" );
-        
-        Center center = new Center() ;
-        center.setTitle( "Dashboard" );
-        borderlayout.appendChild( center );
-        borderlayout.getCenter().appendChild( pane );
         
         appendChild( borderlayout );
     }
