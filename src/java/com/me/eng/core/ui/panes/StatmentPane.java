@@ -32,6 +32,8 @@ package com.me.eng.core.ui.panes;
 import com.me.eng.core.data.StatmentData;
 import com.me.eng.core.ui.parts.TableLayout;
 import com.me.eng.core.ui.selectors.Combobox;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
@@ -60,7 +62,22 @@ public class StatmentPane
      */
     public StatmentData getData()
     {
-        return new StatmentData( sqlField.getText(), typeField.getSelectedElement() );
+        return new StatmentData( sqlField.getText(), userBox.getValue(), quantidadeBox.getValue(), typeField.getSelectedElement() );
+    }
+    
+    /**
+     * onSelect
+     * 
+     * @param e Event
+     */
+    private void onSelect( Event e )
+    {
+        quantidadeBox.setVisible( typeField.getSelectedElement() == StatmentData.Type.INSERT );
+        quantidadeLabel.setVisible( typeField.getSelectedElement() == StatmentData.Type.INSERT );
+        
+        sqlField.setVisible( typeField.getSelectedElement() != StatmentData.Type.INSERT );
+        
+         getParent().invalidate();
     }
     
     /**
@@ -69,24 +86,33 @@ public class StatmentPane
      */
     private void initComponents()
     {
-        setStyle( "padding: 5px; width: 100%" );
+        setStyle( "padding: 5px; width: 650px" );
         
-        typeField.setWidth( "100%" );
+        typeField.setWidth( "250px" );
         typeField.setElements( StatmentData.Type.values() );
         typeField.setSelectedElement( StatmentData.Type.QUERY );
         
         sqlField.setWidth( "100%" );
         sqlField.setRows( 7 );
         
-        setWidths( "100%" );
+        quantidadeBox.setVisible( false );
+        quantidadeLabel.setVisible( false );
+                
+        setWidths( "250px", "100px", "100px", "100px", "100px" );
         
-        addRow( typeField, new Label("Usuários: "), userBox );
+        addRow( typeField, userLabel, userBox, quantidadeLabel, quantidadeBox );
         addRow( sqlField );
         
-        setColspan( 1, 0, 3 );
+        setColspan( 1, 0, 5 );
+        
+        typeField.addEventListener( Events.ON_SELECT, this::onSelect );
     }
 
-    private Textbox sqlField      = new Textbox();
+    private Label userLabel         = new Label("Usuários: ");
+    private Label quantidadeLabel   = new Label("Quantidade: ");
+    
+    private Textbox sqlField        = new Textbox();
     private Intbox userBox          = new Intbox( 1 );
+    private Intbox quantidadeBox    = new Intbox( 1 );
     private Combobox<StatmentData.Type> typeField    = new Combobox();
 }

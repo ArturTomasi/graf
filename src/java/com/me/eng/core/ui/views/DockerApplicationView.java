@@ -119,6 +119,10 @@ public class DockerApplicationView
                             case QUERY:
                                 db.query( data.getSql() );
                             break;
+
+                            case INSERT:
+                                db.executeCommand( "call doWhile(" + data.getQuantidade() + ")");
+                            break;
                         }
                     }
 
@@ -130,10 +134,12 @@ public class DockerApplicationView
 
                 catch ( Exception e )
                 {
-                    Prompts.alert( "Problemas na conexão!" );
+                    Prompts.error( "Problemas na conexão!\n" + e.getMessage() );
                 }
             } ).start();
         }
+        
+        Prompts.info( "Executando..." );
     }
     
     /**

@@ -8,15 +8,18 @@ public class StatmentData
 {
     public enum Type
     {
-        QUERY, COMMAND
+        QUERY, COMMAND, INSERT
     }
     
     private String sql;
     private int user;
+    private int quantidade;
     private Type type;
 
-    public StatmentData(String sql, Type type) {
+    public StatmentData(String sql, int user, int quantidade, Type type) {
         this.sql = sql;
+        this.user = user;
+        this.quantidade = quantidade;
         this.type = type;
     }
 
@@ -43,4 +46,14 @@ public class StatmentData
     public void setUser(int user) {
         this.user = user;
     }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+    
+    
 }

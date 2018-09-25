@@ -51,7 +51,6 @@ public class VMApplicationView
     extends 
         ApplicationViewUI
 {
-
     /**
      * AdminstratorApplicationView
      * 
@@ -88,7 +87,7 @@ public class VMApplicationView
         
         catch ( Exception e )
         {
-            Prompts.alert( "Problemas na conexão!" );
+            Prompts.alert( "Problemas na conexão!\n" + e.getMessage() );
         }
     }
    
@@ -120,6 +119,10 @@ public class VMApplicationView
                             case QUERY:
                                 db.query( data.getSql() );
                             break;
+
+                            case INSERT:
+                                db.executeCommand( "call doWhile(" + data.getQuantidade() + ")");
+                            break;
                         }
                     }
 
@@ -131,10 +134,12 @@ public class VMApplicationView
 
                 catch ( Exception e )
                 {
-                    Prompts.alert( "Problemas na conexão!" );
+                    Prompts.error( "Problemas na conexão!\n" + e.getMessage() );
                 }
             } ).start();
         }
+        
+        Prompts.info( "Executando..." );
     }
     
     /**
@@ -178,7 +183,6 @@ public class VMApplicationView
         pc.appendChild( new PortletPanel( new PortletInfo( "Gráfico", 
                                                            "https://snapshot.raintank.io/dashboard-solo/snapshot/DZAp7H0f3woFUSljYzvNsq4ithnxArdQ?orgId=2&panelId=9&from=1537455541406&to=1537477141406",
                                                            "https://snapshot.raintank.io/dashboard-solo/snapshot/DZAp7H0f3woFUSljYzvNsq4ithnxArdQ?orgId=2&panelId=9&from=1537455541406&to=1537477141406",
-//                                                           "https://snapshot.raintank.io/dashboard-solo/snapshot/isJXUjK12Q9SOLbK00Ui51oqN5qVs7I3?orgId=2&panelId=9&from=1537116309755&to=1537137909755&var-Group=All&var-Hosts=srv002.fell.eng.br", 
                                                            PortletInfo.PortletType.IFRAME, "yes", "500px" ) ) );
         
         
