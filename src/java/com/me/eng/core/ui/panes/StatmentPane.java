@@ -31,12 +31,10 @@ package com.me.eng.core.ui.panes;
 
 import com.me.eng.core.application.ResourceLocator;
 import com.me.eng.core.data.StatmentData;
-import com.me.eng.core.ui.apps.Action;
 import com.me.eng.core.ui.parts.TableLayout;
 import com.me.eng.core.ui.selectors.Combobox;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.Events;
-import org.zkoss.zul.Button;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
@@ -50,6 +48,11 @@ public class StatmentPane
     extends 
         TableLayout
 {
+    public static class Events
+    {
+        public static final String ON_STATMENT = "onStatment";
+    }
+    
     /**
      * FilterPane
      * 
@@ -91,7 +94,7 @@ public class StatmentPane
      */
     private void doStatment( Event e )
     {
-        
+        Executions.getCurrent().postEvent( new Event( Events.ON_STATMENT, this, getData() ) );
     }
     
     
@@ -124,8 +127,8 @@ public class StatmentPane
         setRowspan( 0, 2, 4 );
         setRowspan( 0, 3, 4 );
         
-        typeField.addEventListener( Events.ON_SELECT, this::onSelect );
-        fireAction.addEventListener( Events.ON_CLICK, this::doStatment );
+        typeField.addEventListener( org.zkoss.zk.ui.event.Events.ON_SELECT, this::onSelect );
+        fireAction.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::doStatment );
     }   
 
     private Label typeLabel         = new Label("Tipo: ");

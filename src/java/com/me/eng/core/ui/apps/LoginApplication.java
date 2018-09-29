@@ -20,11 +20,13 @@
 package com.me.eng.core.ui.apps;
 
 import com.me.eng.core.application.ConfigurationManager;
+import com.me.eng.core.application.ResourceLocator;
 import org.zkoss.zhtml.Form;
 import org.zkoss.zhtml.Input;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Div;
+import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
@@ -62,10 +64,8 @@ public class LoginApplication
         setStubonly( true );
         setZclass( "container login-center" );
         
-        Label labelApplication = new Label();
-        labelApplication.setValue( ConfigurationManager.getInstance().getProperty( "application.name", "Application Name" ) );
-        labelApplication.setStyle( "display: block;" );
-        labelApplication.setZclass( "title-login" );
+        Image labelApplication = new Image( ResourceLocator.getImageResource( "core/me_logo.png" ) );
+        labelApplication.setStyle( "width: 500px; filter: brightness(0) invert(1); margin-bottom: 25px;" );
         
         Label errorLabel = new Label( "Atenção! login ou senha incorretos." );
         errorLabel.setZclass( "error-login" );

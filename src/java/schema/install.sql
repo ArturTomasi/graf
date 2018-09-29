@@ -41,6 +41,13 @@ create table core_user_roles
     foreign key fk_user_roles_role (ref_role) references core_roles (id)
 );
 
+
+create view v_core_user_roles as 
+    select core_users.login, core_roles.role
+    from core_users, core_roles, core_user_roles
+    where core_users.id = core_user_roles.ref_user
+    and core_roles.id = core_user_roles.ref_role;
+
 insert into core_roles ( id, role, name ) values ( -1, 'manager-gui', 'Tomcat Manager GUI' );
 insert into core_roles ( id, role, name ) values ( -2, 'manager-script', 'Tomcat Manager Script' );
 insert into core_roles ( id, role, name ) values ( 1, 'administrator', 'Administrador' );
@@ -50,15 +57,9 @@ insert into core_roles ( id, role, name ) values ( 2, 'operator', 'Operador' );
 insert into core_users ( id, login, password, name, profile ) values ( -1, 'tomcat', '21232f297a57a5a743894a0e4a801fc3', 'Tomcat Administrator', 1 );
 insert into core_users ( id, login, password, name, profile ) values ( 1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Administrador do Sistema', 1 );
 
-insert into core_users ( id, login, password, name, profile ) values ( 2, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Gerson', 1 );
-
 insert into core_user_roles values ( -1, -1 );
 insert into core_user_roles values ( -1, -2 );
 
 insert into core_user_roles values ( 1, 1 );
 insert into core_user_roles values ( 1, -1 );
 insert into core_user_roles values ( 1, -2 );
-
-insert into core_user_roles values ( 2, 1 );
-insert into core_user_roles values ( 2, -1 );
-insert into core_user_roles values ( 2, -2 );

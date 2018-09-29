@@ -28,19 +28,16 @@
  */
 package com.me.eng.core.ui.views;
 
+import com.me.eng.core.application.ApplicationContext;
 import com.me.eng.core.data.StatmentData;
-import com.me.eng.core.ui.apps.Action;
-import com.me.eng.core.ui.panes.PortletPanel;
 import com.me.eng.core.ui.panes.StatmentPane;
-import com.me.eng.core.ui.parts.PortletInfo;
+import com.me.eng.core.ui.panes.docker.DashboardPane;
 import com.me.eng.core.ui.util.Prompts;
 import com.me.eng.db.Base;
 import com.me.eng.db.Database;
 import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zkmax.zul.Portalchildren;
 import org.zkoss.zkmax.zul.Portallayout;
 import org.zkoss.zul.Borderlayout;
-import org.zkoss.zul.Center;
 import org.zkoss.zul.East;
 import org.zkoss.zul.North;
 import org.zkoss.zul.West;
@@ -61,36 +58,6 @@ public class VMApplicationView
     {
         setLabel( "Virtual Machine" );
         setIcon( "core/sb_vm.png" );
-//        addAction( "Virtual Machine", insertAction, confAction, testAction );
-    }
-
-    /**
-     * test
-     * 
-     */
-    private void test()
-    {
-        try
-        {
-            Database db = Database.getInstance( Base.VIRTUAL_MACHINE );
-
-            try
-            {
-                db.query( "select 1" );
-                
-                Prompts.alert( "Sucesso!" );
-            }
-            
-            finally
-            {
-                db.release();
-            }
-        }
-        
-        catch ( Exception e )
-        {
-            Prompts.alert( "Problemas na conexão!\n" + e.getMessage() );
-        }
     }
    
     
@@ -98,74 +65,63 @@ public class VMApplicationView
      * doStatment
      * 
      */
-    private void doStatment()
+    private void doStatment( Event evt )
     {
         StatmentData data = statmentPane.getData();
         
         for ( int i = 0; i < data.getUser(); i++ )
         {
-            new Thread(() -> 
-            {
-                try
-                {
-                    Database db = Database.getInstance( Base.VIRTUAL_MACHINE );
-
-                    try
-                    {
-                        switch ( data.getType() )
-                        {
-                            case COMMAND:
-                                db.executeCommand( data.getSql() );
-                            break;
-
-                            case QUERY:
-                                db.query( data.getSql() );
-                            break;
-
-                            case INSERT:
-                                db.executeCommand( "call doWhile(" + data.getQuantidade() + ")");
-                            break;
-                        }
-                    }
-
-                    finally
-                    {
-                        db.release();
-                    }
-                }
-
-                catch ( Exception e )
-                {
-                    Prompts.error( "Problemas na conexão!\n" + e.getMessage() );
-                }
-            } ).start();
+            fireStatment( Base.DOCKER );
+            fireStatment( Base.VIRTUAL_MACHINE );
         }
         
         Prompts.info( "Executando..." );
     }
     
     /**
-     * doStatment
+     * fireStatment
      * 
+     * @param base Base
      */
-    private void showConfig()
+    private void fireStatment( Base base )
     {
-        North north = borderlayout.getNorth();
+        StatmentData data = statmentPane.getData();
         
-        if ( north == null )
+        new Thread(() -> 
         {
-            north = new North();
-            north.appendChild( statmentPane );
-            
-            borderlayout.appendChild( north );
-        }
-        
-        else
-        {
-            borderlayout.getNorth().detach();
-        }
-        
-        borderlayout.invalidate();
+            try
+            {
+                Database db = Database.getInstance( base );
+
+                try
+                {
+                    switch ( data.getType() )
+                    {
+                        case COMMAND:
+                            db.executeCommand( data.getSql() );
+                        break;
+
+                        case QUERY:
+                            db.query( data.getSql() );
+                        break;
+
+                        case INSERT:
+                            db.executeCommand( "call doWhile(" + data.getQuantidade() + ")");
+                        break;
+                    }
+                }
+
+                finally
+                {
+                    db.release();
+                }
+            }
+
+            catch ( Exception e )
+            {
+                ApplicationContext.getInstance().handleException( e );
+            }
+        } ).start();
     }
     
     /**
@@ -185,50 +141,24 @@ public class VMApplicationView
         East east = new East() ;
         east.setWidth( "50%" );
         east.setTitle( "Docker" );
+        east.appendChild( new com.me.eng.core.ui.panes.docker.DashboardPane() );
         
         West west = new West() ;
         west.setWidth( "50%" );
         west.setTitle( "Virtual Machine" );
+        west.appendChild( new com.me.eng.core.ui.panes.vm.DashboardPane() );
+        
         
         borderlayout.appendChild( north );
         borderlayout.appendChild( west );
         borderlayout.appendChild( east );
         
-        
-        
         appendChild( borderlayout );
+        
+        statmentPane.addEventListener( StatmentPane.Events.ON_STATMENT, this::doStatment );
     }
-    
-    private Portallayout pane = new Portallayout();
     
     private StatmentPane statmentPane = new StatmentPane();
     
     private Borderlayout borderlayout = new Borderlayout();
-    
-    private Action insertAction = new Action( "core/tb_play.png", "Executar", "Executar query customizada!" ) 
-    {
-        @Override
-        public void onEvent( Event t ) throws Exception 
-        {
-            doStatment();
-        }
-    };
-    
-    private Action testAction = new Action( "core/tb_test.png", "Testar", "Test" ) 
-    {
-        @Override
-        public void onEvent( Event t ) throws Exception 
-        {
-            test();
-        }
-    };
-    
-    private Action confAction = new Action( "core/tb_configure.png", "Configurar", "Configurar query" ) 
-    {
-        @Override
-        public void onEvent( Event t ) throws Exception 
-        {
-            showConfig();
-        }
-    };
 }

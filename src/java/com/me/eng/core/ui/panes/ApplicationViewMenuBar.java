@@ -79,7 +79,7 @@ public class ApplicationViewMenuBar
     private void initComponents()
     {
         lbUser.setValue( "(Sem usuário autenticado)" );
-        lbVersion.setValue( BuildInfo.getVersion() );
+        lbVersion.setValue( "Master Engine 1.0" );
         
         setHflex( "true" );
         setVflex( "true" );

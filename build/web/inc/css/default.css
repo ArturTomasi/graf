@@ -2,8 +2,7 @@ body, html
 {
     margin: 0px !important;
     padding: 0px !important;
-    background-image: url('../../img/core/background.jpg');
-    background-repeat: round;
+    background-color: #000;
     overflow: hidden;
 }
 
@@ -15,7 +14,7 @@ body, html
     position: absolute;
     top: 50%;
     left: 50%;
-    background-color: rgba(48, 67, 105, 0.6);
+    background-color: rgba(255, 255, 255, 0.09);
     padding: 75px;
     border-radius: 50px;
 }
@@ -67,10 +66,9 @@ body, html
 
 .btn-login
 {
-    color: #fff !important;
-/*    background-color: #304368;*/
-    background: url(../../img/core/background.jpg);
-    border: 2px solid #304368 !important;
+    color: #000 !important;
+    background-color: #fff;
+    border: 2px solid #fff !important;
     font-weight: bold !important;
     border-radius: 10px !important;
     margin-top: 7px;
@@ -82,11 +80,11 @@ body, html
 
 .input-login
 {
-    border: 1px solid #304368 !important;
+    border: 1px solid #fff !important;
     border-radius: 10px !important;
     margin-top: 7px;
     height: 45px !important;
-    color: #304368;
+    color: #000;
     font-weight: bold;
     text-indent: 41px;
     background-repeat: no-repeat;
@@ -118,7 +116,7 @@ body, html
 .default-app-pane-west
 {
     background: #fff;
-    outline: 1px solid rgb(48, 67, 105);
+    outline: 1px solid #000;
 }
 
 .default-app-pane-north
@@ -346,7 +344,7 @@ body, html
 .posting-list .title
 {
     font-size: 22px;
-    color:  rgb(48, 67, 105);
+    color:  #000;
     font-weight: bold;
 }
 
@@ -355,14 +353,14 @@ body, html
     font-size: 15px;
     width: 125px;
     font-weight: bold;
-    color:  rgb(48, 67, 105);
+    color:  #000;
 }
 
 .posting-list .details
 {
     font-size: 15px;
     width: 200px;
-    background-color: rgb(48, 67, 105);
+    background-color: #000;
 }
 
 .posting-legend-pane
@@ -395,7 +393,7 @@ body, html
     padding: 7px;
     border: none;
     border-radius: 10px;
-    background-color: rgb(48, 67, 105);
+    background-color: #000;
     font-size: 16px;
 }
 
@@ -409,7 +407,7 @@ body, html
 
 .dropupload
 {    
-    border: 2px dashed rgb(48, 67, 105);
+    border: 2px dashed #000;
     border-radius: 15px;
     background: transparent;
     overflow: hidden;
@@ -445,8 +443,8 @@ body, html
 .z-panel-head
 {
     color: #fff;
-    border-color : rgb(48, 67, 105) !important;
-    background: rgb(48, 67, 105);
+    border-color : #000 !important;
+    background: #000;
     
 }
 
@@ -520,7 +518,7 @@ body, html
 
 .z-listbox-footer
 {
-    border-top: 1px solid rgb(48, 67, 105);
+    border-top: 1px solid #000;
 }
 .z-listbox
 {
