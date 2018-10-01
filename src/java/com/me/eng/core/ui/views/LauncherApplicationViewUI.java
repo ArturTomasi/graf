@@ -25,9 +25,12 @@ import com.me.eng.core.ui.apps.AdministratorApplicationUI;
 import com.me.eng.core.ui.apps.ApplicationUI;
 import com.me.eng.core.ui.apps.SetupApplicationUI;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.Events;
-import org.zkoss.zkex.zul.Fisheye;
-import org.zkoss.zkex.zul.Fisheyebar;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Div;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
+import org.zkoss.zul.Vbox;
 
 /**
  *
@@ -58,10 +61,22 @@ public class LauncherApplicationViewUI
     {
         final ApplicationDescriptor app = ui.getAnnotation( ApplicationDescriptor.class );
         
-        Fisheye fisheye = new Fisheye( app.label(), ResourceLocator.getImageResource( app.icon() ) );
-        fisheye.addEventListener( Events.ON_CLICK, e->  Executions.getCurrent().sendRedirect( app.url(), "_blank" ) );
+        Vbox div = new Vbox();
+        div.setSclass( "launcher-app-button" );
+        div.setAlign( "middle" );
+        div.appendChild( new Image( ResourceLocator.getImageResource( app.icon() ) ) );
+        div.appendChild( new Label( app.label() ) );
         
-        bar.appendChild( fisheye );
+        div.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, new EventListener<Event>()
+        {
+            @Override
+            public void onEvent( Event t ) throws Exception
+            {
+                Executions.getCurrent().sendRedirect( app.url(), "_blank" );
+            }
+        } );
+        
+        inner.appendChild( div );
     }
 
     /**
@@ -71,18 +86,25 @@ public class LauncherApplicationViewUI
     @Override
     protected void initComponents()
     {
-        addApplication(AdministratorApplicationUI.class );
+        addApplication( AdministratorApplicationUI.class );
         addApplication( SetupApplicationUI.class );
         
+        setSclass( "launcher-app" );
         setVflex( "true" );
         
-        bar.setItemHeight( 150 );
-        bar.setItemWidth( 150 );
-        bar.setItemMaxHeight( 350 );
-        bar.setItemMaxWidth( 350 );
+        inner.setWidgetAttribute( "align", "center" );
+        inner.setSclass( "launcher-app-container" );
+        inner.setStyle( "display: table-cell; vertical-align: middle" );
         
-        appendChild( bar );
+        content.appendChild( inner );
+        
+        content.setStyle( "display: table" );
+        content.setHflex( "true" );
+        content.setVflex( "true" );
+        
+        appendChild( content );
     }
     
-    private Fisheyebar bar = new Fisheyebar();
+    private Div content = new Div();
+    private Div inner = new Div();
 }

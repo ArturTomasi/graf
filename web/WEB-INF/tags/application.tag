@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Master Engine - ${title}</title>
+        <title>${title}</title>
         <link rel="shortcut icon" href="<%=request.getContextPath()%>/img/core/logo.png">
         <link rel="stylesheet" href="<%=request.getContextPath()%>/inc/css/default.css">
         <script type="text/javascript" src="<%=request.getContextPath()%>/inc/js/jquery-3.3.1.min.js"></script>

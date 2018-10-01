@@ -30,8 +30,7 @@
 package com.me.eng.core.ui.apps;
 
 import com.me.eng.core.annotations.ApplicationDescriptor;
-import com.me.eng.core.ui.views.DockerApplicationView;
-import com.me.eng.core.ui.views.VMApplicationView;
+import com.me.eng.core.ui.views.ApplicationView;
 
 /**
  *
@@ -39,7 +38,7 @@ import com.me.eng.core.ui.views.VMApplicationView;
  */
 @ApplicationDescriptor( url = "/admin/administrator.jsp",
                         icon = "core/ai_administrator.png",
-                        label = "Administrador" )
+                        label = "Monitoramento" )
 public class AdministratorApplicationUI 
     extends 
         ApplicationUI
@@ -51,7 +50,6 @@ public class AdministratorApplicationUI
      */
     public AdministratorApplicationUI() 
     {
-//        addView( new DockerApplicationView() );
-        addView( new VMApplicationView() );
+        addView(new ApplicationView() );
     }
 }

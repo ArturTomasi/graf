@@ -19,11 +19,8 @@
  */
 package com.me.eng.core.ui.panes;
 
-import com.me.eng.BuildInfo;
-import com.me.eng.core.application.ApplicationContext;
 import com.me.eng.core.application.ResourceLocator;
 import com.me.eng.core.domain.User;
-import com.me.eng.core.ui.apps.ApplicationUI;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Events;
@@ -36,34 +33,15 @@ import org.zkoss.zul.Label;
  *
  * @author Artur
  */
-public class ApplicationViewMenuBar
+public class StatusBar
     extends 
         Div
 {
-    /**
-     * StatusBar
-     * 
-     */
-    public ApplicationViewMenuBar()
+    public StatusBar()
     {
         initComponents();
     }
     
-    /**
-     * setApplicationUI
-     * 
-     * @param ui ApplicationUI
-     */
-    public void setApplicationUI( ApplicationUI ui )
-    {
-        menu.setApplicationUI( ui );
-    }
-    
-    /**
-     * setUser
-     * 
-     * @param user User
-     */
     public void setUser( User user )
     {
         if ( user != null )
@@ -72,36 +50,28 @@ public class ApplicationViewMenuBar
         }
     }
     
-    /**
-     * initComponents
-     * 
-     */
     private void initComponents()
     {
         lbUser.setValue( "(Sem usuário autenticado)" );
-        lbVersion.setValue( "Master Engine 1.0" );
+        lbVersion.setValue( "Univates 1.0-0" );
         
         setHflex( "true" );
-        setVflex( "true" );
         setStyle( "color: white; font-size: 10px; position: relative;" );
 
         imgUser.setSrc( ResourceLocator.getImageResource( "core/sb_user.png" ) );
         imgUser.setHeight( "18px" );
         imgUser.setWidth( "auto" );
         
-        lbVersion.setStyle( "position: absolute; right: 10px; bottom: 22px" );
+        lbVersion.setStyle( "position: absolute; right: 10px; top: 10px" );
         lbUser.setStyle( "color: #fff;" );
         
         Hbox hbox = new Hbox();
         hbox.setAlign( "middle" );
         hbox.appendChild( lbUser );
         hbox.appendChild( imgUser );
-        hbox.setTooltiptext( "Clique para fazer logout!" );
-        hbox.setStyle( "position: absolute; left: 10px; bottom: 22px; cursor: pointer;" );
+        hbox.setStyle( "position: absolute; left: 10px; top: 10px" );
         
         appendChild( hbox );
-        
-        ApplicationContext.getInstance().getRoot().appendChild( menu );
         appendChild( lbVersion );
         
         hbox.addEventListener( Events.ON_CLICK, e->  
@@ -115,6 +85,4 @@ public class ApplicationViewMenuBar
     private Image imgUser = new Image();
     private Label lbUser = new Label();
     private Label lbVersion = new Label();
-    
-    private ApplicationViewMenu menu = new ApplicationViewMenu();
 }

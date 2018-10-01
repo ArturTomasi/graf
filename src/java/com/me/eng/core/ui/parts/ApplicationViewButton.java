@@ -21,7 +21,10 @@ package com.me.eng.core.ui.parts;
 
 import com.me.eng.core.application.ResourceLocator;
 import com.me.eng.core.ui.views.ApplicationViewUI;
-import org.zkoss.zkex.zul.Fisheye;
+import org.zkoss.zul.Div;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
+import org.zkoss.zul.Vbox;
 
 /**
  *
@@ -29,7 +32,7 @@ import org.zkoss.zkex.zul.Fisheye;
  */
 public class ApplicationViewButton
     extends 
-        Fisheye
+        Div
 {
     private ApplicationViewUI viewUI;
 
@@ -81,7 +84,18 @@ public class ApplicationViewButton
     {
         setSclass( "default-app-view-button" );
         
-        setLabel( viewUI.getLabel() );
-        setImage( ResourceLocator.getImageResource( viewUI.getIcon() ) );
+        Label lb = new Label( viewUI.getLabel() );
+
+        Image image = new Image( ResourceLocator.getImageResource( viewUI.getIcon() ) );
+        
+        Vbox vbox = new Vbox();
+        vbox.setHflex( "true" );
+        vbox.setVflex( "true" );
+        vbox.setAlign( "middle" );
+        vbox.setSpacing( "2px" );
+        vbox.appendChild( image );
+        vbox.appendChild( lb );
+        
+        appendChild( vbox );
     }
 }

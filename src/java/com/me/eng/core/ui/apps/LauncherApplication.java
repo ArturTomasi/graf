@@ -23,7 +23,7 @@ import com.me.eng.core.annotations.ApplicationDescriptor;
 import com.me.eng.core.application.ApplicationContext;
 import com.me.eng.core.application.ResourceLocator;
 import com.me.eng.core.ui.panes.ApplicationCaption;
-import com.me.eng.core.ui.panes.ApplicationViewMenuBar;
+import com.me.eng.core.ui.panes.StatusBar;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.ClientInfoEvent;
 import org.zkoss.zk.ui.event.Event;
@@ -140,5 +140,5 @@ public class LauncherApplication
     
     private ApplicationCaption caption = new ApplicationCaption();
     
-    private ApplicationViewMenuBar statusBar = new ApplicationViewMenuBar();
+    private StatusBar statusBar = new StatusBar();
 }

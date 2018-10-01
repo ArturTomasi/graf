@@ -31,12 +31,10 @@ package com.me.eng.core.ui.views;
 import com.me.eng.core.application.ApplicationContext;
 import com.me.eng.core.data.StatmentData;
 import com.me.eng.core.ui.panes.StatmentPane;
-import com.me.eng.core.ui.panes.docker.DashboardPane;
 import com.me.eng.core.ui.util.Prompts;
 import com.me.eng.db.Base;
 import com.me.eng.db.Database;
 import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zkmax.zul.Portallayout;
 import org.zkoss.zul.Borderlayout;
 import org.zkoss.zul.East;
 import org.zkoss.zul.North;
@@ -46,7 +44,7 @@ import org.zkoss.zul.West;
  *
  * @author Artur Tomasi
  */
-public class VMApplicationView 
+public class ApplicationView 
     extends 
         ApplicationViewUI
 {
@@ -54,7 +52,7 @@ public class VMApplicationView
      * AdminstratorApplicationView
      * 
      */
-    public VMApplicationView() 
+    public ApplicationView() 
     {
         setLabel( "Virtual Machine" );
         setIcon( "core/sb_vm.png" );
@@ -119,7 +117,7 @@ public class VMApplicationView
 
             catch ( Exception e )
             {
-                ApplicationContext.getInstance().handleException( e );
+                e.printStackTrace( System.err );
             }
         } ).start();
     }
@@ -140,13 +138,13 @@ public class VMApplicationView
         
         East east = new East() ;
         east.setWidth( "50%" );
-        east.setTitle( "Docker" );
+        east.setTitle( "Docker - srv002.fell.eng.br" );
         east.appendChild( new com.me.eng.core.ui.panes.docker.DashboardPane() );
         
         West west = new West() ;
         west.setWidth( "50%" );
-        west.setTitle( "Virtual Machine" );
-        west.appendChild( new com.me.eng.core.ui.panes.vm.DashboardPane() );
+        west.setTitle( "Virtual Machine - srv001.fell.eng.br" );
+        west.appendChild( new com.me.eng.core .ui.panes.vm.DashboardPane() );
         
         
         borderlayout.appendChild( north );

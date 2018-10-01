@@ -22,7 +22,8 @@ package com.me.eng.core.ui.apps;
 import com.google.common.base.Objects;
 import com.me.eng.core.application.ApplicationContext;
 import com.me.eng.core.ui.panes.ApplicationCaption;
-import com.me.eng.core.ui.panes.ApplicationViewMenuBar;
+import com.me.eng.core.ui.panes.ApplicationViewMenu;
+import com.me.eng.core.ui.panes.StatusBar;
 import com.me.eng.core.ui.views.ApplicationViewUI;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,14 +31,16 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.ClientInfoEvent;
 import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zkmax.zul.Nav;
-import org.zkoss.zkmax.zul.Navbar;
-import org.zkoss.zkmax.zul.Navitem;
 import org.zkoss.zul.Borderlayout;
 import org.zkoss.zul.Center;
 import org.zkoss.zul.Div;
+import org.zkoss.zul.Menu;
+import org.zkoss.zul.Menubar;
+import org.zkoss.zul.Menuitem;
+import org.zkoss.zul.Menupopup;
 import org.zkoss.zul.North;
 import org.zkoss.zul.South;
+import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.West;
 
 /**
@@ -78,21 +81,11 @@ public class DefaultApplicationUIPane
      */
     public void setApplicationUI( ApplicationUI ui )
     {
-        applicationViewMenuBar.setApplicationUI( ui );
+        menu.setApplicationUI( ui );
         
         activeView( ui.getFirstView() );
         
-        applicationViewMenuBar.setUser( ApplicationContext.getInstance().getActiveUser() );
-    }
-    
-    /**
-     * setVisibleMenu
-     * 
-     * @param visible boolean
-     */
-    public void setVisibleMenu( boolean visible )
-    {
-        borderlayout.getWest().setVisible( visible );
+        statusBar.setUser( ApplicationContext.getInstance().getActiveUser() );
     }
     
     /**
@@ -105,41 +98,52 @@ public class DefaultApplicationUIPane
         if ( ! Objects.equal( viewUI, view ) )
         {
             this.viewUI = view;
-
-            setVisibleMenu( ! view.getActions().isEmpty() );
             
+            borderlayout.getCenter().getChildren().clear();
+
+            Menubar menubar = new Menubar();
+
             List<ActionCategory> actions = new LinkedList();
             actions.addAll( view.getActions() );
             actions.add( systemActions );
-
-            Navbar navbar = new Navbar( "vertical" );
             
-            actions.forEach( category ->
+            for ( ActionCategory category : actions )
             {
-                Nav nav = new Nav( category.getLabel() );
-                nav.setOpen( navbar.getChildren().isEmpty() );
-                
-                category.getActions().forEach( a -> 
+                Menu menu = new Menu( category.getLabel() );
+
+                Menupopup menupopup = new Menupopup();
+
+                for ( Action a : category.getActions() )
                 {
-                    Navitem item = new Navitem();
-                    item.setLabel( a.getLabel() );
+                    Menuitem item = new Menuitem( a.getLabel() );
                     item.setImage( a.getIcon() );
                     item.setTooltiptext( a.getTooltipText() );
                     item.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, a );
 
-                    nav.appendChild( item );
-                } );
-                
-                navbar.appendChild( nav );
-            } );
+                    menupopup.appendChild( item );
+                }
 
-            borderlayout.getWest().getChildren().clear();
-            borderlayout.getWest().appendChild( navbar  );
+                menu.appendChild( menupopup );
 
-            borderlayout.getCenter().getChildren().clear();
-            borderlayout.getCenter().appendChild( view  );
+                menubar.appendChild( menu );
+            }
+
+            Vlayout div = new Vlayout();
+            div.setVflex( "true" );
+            div.setHflex( "true" );
+            
+            if ( ! view.getActions().isEmpty() )
+            {
+                div.appendChild( menubar );
+            }
+            
+            div.appendChild( view );
+
+            borderlayout.getCenter().appendChild( div );
 
             view.active();
+            
+            borderlayout.getWest().setVisible( view.getApplicationUI().getViews().size() > 1 );
         }
     }
     
@@ -157,9 +161,8 @@ public class DefaultApplicationUIPane
         borderlayout.getWest().setTitle( "Menu" );
         
         borderlayout.getNorth().setHeight( "70px" );
-        borderlayout.getWest().setWidth( "150px" );
-        borderlayout.getSouth().setHeight( "70px" );
-        
+        borderlayout.getWest().setWidth( "100px" );
+        borderlayout.getSouth().setHeight( "20px" );
         borderlayout.getCenter().setVflex( "true" );
         borderlayout.getCenter().setHflex( "true" );
         
@@ -171,17 +174,19 @@ public class DefaultApplicationUIPane
         borderlayout.getCenter().setBorder( "none" );
         borderlayout.getWest().setBorder( "none" );
         
+        borderlayout.getWest().appendChild( menu );
         borderlayout.getNorth().appendChild( caption ); 
 
-        borderlayout.getSouth().appendChild( applicationViewMenuBar );
+        borderlayout.getSouth().appendChild( statusBar );
         
         appendChild( borderlayout );
     }
-
-    private Borderlayout borderlayout = new Borderlayout();
     
     private ApplicationCaption caption = new ApplicationCaption();
-    private ApplicationViewMenuBar applicationViewMenuBar = new ApplicationViewMenuBar();
+    private ApplicationViewMenu menu = new ApplicationViewMenu();
+    private Borderlayout borderlayout = new Borderlayout();
+    
+    private StatusBar statusBar = new StatusBar();
     
     private Action logoffAction = new Action( "core/tb_logout.png", "Sair", "Sair do Sistema")
     {

@@ -21,7 +21,10 @@ package com.me.eng.core.ui.panes;
 
 import com.me.eng.core.ui.apps.ApplicationUI;
 import com.me.eng.core.ui.parts.ApplicationViewButton;
-import org.zkoss.zkex.zul.Fisheyebar;
+import com.me.eng.core.ui.views.ApplicationViewUI;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Vlayout;
 
 /**
  *
@@ -29,46 +32,35 @@ import org.zkoss.zkex.zul.Fisheyebar;
  */
 public class ApplicationViewMenu
     extends 
-        Fisheyebar
+        Vlayout
 {
     private ApplicationViewButton selectedButton;
     
-    /**
-     * ApplicationViewMenu
-     * 
-     */
     public ApplicationViewMenu()
     {
-        setSclass( "fisheye-application-menu" );
-        setAttachEdge( "bottom" );
-        setLabelEdge( "top" );
-        
-        setItemHeight( 65 );
-        setItemMaxHeight( 125 );
-        setItemWidth( 65 );
-        setItemMaxWidth( 125 );
+        setStyle( "margin-top: 10px" );
+        setVflex( "true" );
     }
     
-    /**
-     * setApplicationUI
-     * 
-     * @param ui ApplicationUI
-     */
     public void setApplicationUI( final ApplicationUI ui )
     {
         if ( ui.getViews().size() != 1 )
         {
-            ui.getViews().forEach( viewUI -> 
+            for ( final ApplicationViewUI viewUI : ui.getViews() )
             {
                 final ApplicationViewButton bt = new ApplicationViewButton( viewUI );
 
-                bt.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, e ->
+                bt.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, new EventListener<Event>()
                 {
-                    selectedButton.setSelected( false );
-                    selectedButton = bt;
-                    selectedButton.setSelected( true );
+                    @Override
+                    public void onEvent( Event t ) throws Exception
+                    {
+                        selectedButton.setSelected( false );
+                        selectedButton = bt;
+                        selectedButton.setSelected( true );
 
-                    ui.setSelectedView( viewUI );
+                        ui.setSelectedView( viewUI );
+                    }
                 } );
 
                 appendChild( bt );
@@ -78,12 +70,13 @@ public class ApplicationViewMenu
                     selectedButton = bt;
                     selectedButton.setSelected( true );
                 }
-            } );
+            }
         }
         
         else
         {
             setVisible( false );
         }
+        
     }
 }

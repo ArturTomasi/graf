@@ -126,13 +126,22 @@ body, html
     background-color: #000;
 }
 
+
 .default-app-view-button
 {
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid lightgrey;
+    height: 70px;
+    margin: 2px;
+    text-align: center;
+    cursor: pointer;
+    background: linear-gradient(to bottom,#fefefe 0,#eee 100%);
 }
 
 .default-app-view-button.selected
 {
-    border-bottom: 2px solid #fff;
+    background: linear-gradient(rgb(213, 228, 234) 0px, rgb(183, 210, 226) 100%);
 }
 
 .default-app-view-button img
@@ -148,13 +157,20 @@ body, html
 
 .launcher-app-button
 {
-    right: 20px;
+    padding: 20px;
+    display: inline-block;
     border-radius: 8px;
     -webkit-box-shadow: 10px 10px 20px 5px rgba(0,0,0,0.59);
     -moz-box-shadow: 10px 10px 20px 5px rgba(0,0,0,0.59);
     box-shadow: 10px 10px 20px 5px rgba(0,0,0,0.59);
+    margin-right: 50px;
+    margin-top: 20px;
     background-color: whitesmoke;
     cursor: pointer;
+}
+
+.launcher-app-button img{
+    width: 125px;
 }
 
 .launcher-app-button:hover
