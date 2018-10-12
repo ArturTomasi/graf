@@ -32,6 +32,8 @@ import com.me.eng.core.application.ApplicationContext;
 import com.me.eng.core.data.StatmentData;
 import com.me.eng.core.ui.panes.StatmentPane;
 import com.me.eng.core.ui.util.Prompts;
+import com.me.eng.core.util.RequestController;
+import com.me.eng.core.util.StatmentController;
 import com.me.eng.db.Base;
 import com.me.eng.db.Database;
 import org.zkoss.zk.ui.event.Event;
@@ -85,7 +87,7 @@ public class ApplicationView
     {
         StatmentData data = statmentPane.getData();
         
-        new Thread(() -> 
+        Thread t = new Thread(() -> 
         {
             try
             {
@@ -95,16 +97,24 @@ public class ApplicationView
                 {
                     switch ( data.getType() )
                     {
-                        case COMMAND:
-                            db.executeCommand( data.getSql() );
+//                        case COMMAND:
+//                            db.executeCommand( data.getSql() );
+//                        break;
+//
+//                        case QUERY:
+//                            db.query( data.getSql() );
+//                        break;
+//
+//                        case INSERT:
+//                            db.executeCommand( "call doWhile(" + data.getQuantidade() + ")");
+//                        break;
+
+                        case MIXED:
+                            StatmentController.doStatment( data, db );
                         break;
 
-                        case QUERY:
-                            db.query( data.getSql() );
-                        break;
-
-                        case INSERT:
-                            db.executeCommand( "call doWhile(" + data.getQuantidade() + ")");
+                        case HTTP:
+                            RequestController.doRequest( data, base );
                         break;
                     }
                 }
@@ -119,7 +129,10 @@ public class ApplicationView
             {
                 e.printStackTrace( System.err );
             }
-        } ).start();
+        } );
+        
+        t.setDaemon( true );
+        t.start();
     }
     
     /**
@@ -134,17 +147,18 @@ public class ApplicationView
         
         North north = new North() ;
         north.setTitle( "Configuração" );
+        north.setCollapsible(true);
         north.appendChild( statmentPane );
         
         East east = new East() ;
         east.setWidth( "50%" );
-        east.setTitle( "Docker - srv002.fell.eng.br" );
-        east.appendChild( new com.me.eng.core.ui.panes.docker.DashboardPane() );
+        east.setTitle( "Virtual Machine - srv002.fell.eng.br" );
+        east.appendChild( new com.me.eng.core .ui.panes.vm.DashboardPane() );
         
         West west = new West() ;
         west.setWidth( "50%" );
-        west.setTitle( "Virtual Machine - srv001.fell.eng.br" );
-        west.appendChild( new com.me.eng.core .ui.panes.vm.DashboardPane() );
+        west.setTitle( "Docker - srv001.fell.eng.br" );
+        west.appendChild( new com.me.eng.core.ui.panes.docker.DashboardPane() );
         
         
         borderlayout.appendChild( north );

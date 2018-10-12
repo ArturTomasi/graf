@@ -1,4 +1,29 @@
+
+        POST /getEvents HTTP/1.1
+        Host: https://www.eventtus.com.br
+        Content-Type: application/soap+xml; charset=utf-8
+        Content-Length: nnn
+
+        <?xml version="1.0" encoding='utf-8'?>
+
+        <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/"
+                       soap:encodingStyle="http://www.w3.org/2003/05/soap-encoding">
+            <soap:Header>
+                <m:Trans xmlns:m="https://www.eventtus.com.br/transaction/"
+                         soap:mustUnderstand="1">1
+                </m:Trans>
+            </soap:Header>
+
+            <soap:Body xmlns:m="https://www.eventtus.com.br/events">
+                <m:getEvents>
+                    <m:code>#001</m:code>
+                </m:getEvents>
+            </soap:Body>
+        </soap:Envelope>
+        
+
 <?xml version='1.0' encoding='utf-8'?>
+
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with

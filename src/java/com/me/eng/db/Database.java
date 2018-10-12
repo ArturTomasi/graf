@@ -3,6 +3,7 @@ package com.me.eng.db;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
@@ -82,6 +83,18 @@ public class Database
             
             statment.execute( sql );
         }
+    }
+    
+    /**
+     * getPreparedStatement
+     * 
+     * @param sql String
+     * @return PreparedStatement
+     * @throws Exception
+     */
+    public PreparedStatement getPreparedStatement( String sql ) throws Exception
+    {
+        return connection.prepareStatement( sql );
     }
     
     /**

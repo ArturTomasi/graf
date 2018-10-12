@@ -46,4 +46,32 @@
 
     </category>
     
+    <category label="HTTP Apache">
+    
+        <category label="Docker">
+            
+            <item label="Port"
+                  property="docker.http.port"
+                  type="integer"/>
+            
+            <item label="Url"
+                  property="docker.http.url"
+                  type="string"/>
+
+        </category>
+    
+        <category label="Virtual Machine">
+            
+            <item label="Port"
+                  property="vm.http.port"
+                  type="integer"/>
+            
+            <item label="Url"
+                  property="vm.http.url"
+                  type="string"/>
+            
+        </category>
+
+    </category>
+    
 </configuration>

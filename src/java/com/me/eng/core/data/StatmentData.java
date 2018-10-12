@@ -8,18 +8,38 @@ public class StatmentData
 {
     public enum Type
     {
-        QUERY, COMMAND, INSERT
+        MIXED()
+        {
+            @Override
+            public String toString() 
+            {
+                return "INSERT/SELECT";
+            }
+          
+        },
+        
+        HTTP()
+        {
+            @Override
+            public String toString() {
+                return "HTTP - GET";
+            }
+            
+        }
     }
     
     private String sql;
     private int user;
     private int quantidade;
+    private int timeout;
     private Type type;
 
-    public StatmentData(String sql, int user, int quantidade, Type type) {
+    public StatmentData( String sql, int user, int quantidade, int timeout, Type type )
+    {
         this.sql = sql;
         this.user = user;
         this.quantidade = quantidade;
+        this.timeout = timeout;
         this.type = type;
     }
 
@@ -54,6 +74,12 @@ public class StatmentData
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
-    
-    
+
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
 }

@@ -39,7 +39,12 @@ create table per_1
     text_2 text,
     text_3 text,
     text_4 text,
-    text_5 text
+    text_5 text,
+    img_01 LONGBLOB,
+    img_02 LONGBLOB,
+    img_03 LONGBLOB,
+    img_04 LONGBLOB,
+    img_05 LONGBLOB
 );
 
 create table per_2
@@ -48,7 +53,12 @@ create table per_2
     text_2 text,
     text_3 text,
     text_4 text,
-    text_5 text
+    text_5 text,
+    img_01 LONGBLOB,
+    img_02 LONGBLOB,
+    img_03 LONGBLOB,
+    img_04 LONGBLOB,
+    img_05 LONGBLOB
 );
 
 drop procedure if exists doWhile;
@@ -59,8 +69,8 @@ begin
 
     while ( i < qntd ) do
 
-        insert into per_1 values ( MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()) );
-        insert into per_2 values ( MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()) );
+        insert into per_1 values ( MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), null, null, null, null, null );
+        insert into per_2 values ( MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), null, null, null, null, null );
 
         set i = i+1;
 

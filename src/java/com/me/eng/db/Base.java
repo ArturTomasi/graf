@@ -68,4 +68,24 @@ public enum Base
     {
         return ConfigurationManager.getInstance().getProperty( name + ".db.url" );
     }
+    
+    /**
+     * url
+     * 
+     * @return String
+     */
+    public String host()
+    {
+        return ConfigurationManager.getInstance().getProperty( name + ".http.url" );
+    }
+    
+    /**
+     * url
+     * 
+     * @return String
+     */
+    public String port()
+    {
+        return ConfigurationManager.getInstance().getProperty( name + ".http.port" );
+    }
 }

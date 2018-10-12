@@ -21,7 +21,6 @@ package com.me.eng.core.ui.apps;
 
 import com.me.eng.core.annotations.ApplicationDescriptor;
 import com.me.eng.core.ui.views.ConfigurationApplicationViewUI;
-import com.me.eng.core.ui.views.ScriptApplicationViewUI;
 import com.me.eng.core.ui.views.UserApplicationViewUI;
 
 /**
@@ -44,6 +43,6 @@ public class SetupApplicationUI
     {
         addView( new UserApplicationViewUI() );
         addView( new ConfigurationApplicationViewUI() );
-        addView( new ScriptApplicationViewUI() );
+//        addView( new ScriptApplicationViewUI() );
     }
 }
