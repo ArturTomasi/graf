@@ -453,6 +453,7 @@ body, html
 }
 
 .z-panel-header,
+.z-window-header,
 .z-panel-head i,
 .z-panel-icon,
 .z-panel-icon:hover,
@@ -464,7 +465,8 @@ body, html
     
 }
 
-.z-panel-header
+.z-panel-header,
+.z-window-header
 {
     font-family: Arial,sans-serif;
     font-size: 16px;
@@ -544,6 +546,7 @@ body, html
 .z-west-header,
 .z-north-header,
 .z-east-header,
+.z-window-header,
 .z-center-header
 {
     color: #000;
@@ -558,9 +561,17 @@ body, html
 .z-center,
 .z-north,
 .z-east,
-.z-west
+.z-west,
+.z-window
 {
     border: 1px solid #000;
+
+}
+
+.z-window
+{
+    border: 1px solid #000 !important;
+    padding: 0px !important;
 }
 
 .z-combobox-input[readonly]
@@ -576,4 +587,16 @@ body, html
 .z-north-collapsed
 {
     border: 0;
+}
+
+.z-textbox[disabled] {
+    color: #000!important;
+    background: #fff!important;
+    opacity: 1!important;
+    cursor: default!important;
+    line-height: 30px;
+}
+
+.z-modal-mask{
+    background: transparent;
 }

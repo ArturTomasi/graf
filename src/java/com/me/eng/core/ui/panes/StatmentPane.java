@@ -33,13 +33,15 @@ import com.me.eng.core.application.ResourceLocator;
 import com.me.eng.core.data.StatmentData;
 import com.me.eng.core.ui.parts.TableLayout;
 import com.me.eng.core.ui.selectors.Combobox;
+import com.me.eng.core.util.LogUtilities;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Timer;
+import org.zkoss.zul.Window;
 
 /**
  *
@@ -70,7 +72,7 @@ public class StatmentPane
      */
     public StatmentData getData()
     {
-        return new StatmentData( sqlField.getText(), userBox.getValue(), quantidadeBox.getValue(), quantidadeBox.getValue(), typeField.getSelectedElement() );
+        return new StatmentData( logField.getText(), userBox.getValue(), quantidadeBox.getValue(), quantidadeBox.getValue(), typeField.getSelectedElement() );
     }
     
     /**
@@ -97,7 +99,7 @@ public class StatmentPane
         timeoutBox.setVisible( typeField.getSelectedElement() == StatmentData.Type.HTTP );
         timeoutLabel.setVisible( typeField.getSelectedElement() == StatmentData.Type.HTTP );
         
-        sqlField.setVisible( typeField.getSelectedElement() != StatmentData.Type.MIXED  &&
+        logField.setVisible( typeField.getSelectedElement() != StatmentData.Type.MIXED  &&
                              typeField.getSelectedElement() != StatmentData.Type.HTTP );
         
          getParent().invalidate();
@@ -110,9 +112,37 @@ public class StatmentPane
      */
     private void doStatment( Event e )
     {
-        Executions.getCurrent().postEvent( new Event( Events.ON_STATMENT, this, getData() ) );
     }
     
+    
+    /**
+     * showLog
+     * 
+     * @param e Event
+     */
+    private void showLog( Event e )
+    {
+        Window w = new Window( "Logs", "no", true );
+        w.setParent( this );
+        w.setBorder( false );
+        w.setMaximizable( true );
+        w.setSizable( true );
+        w.setMinwidth( 600 );
+        w.setMinheight( 300 );
+        w.setWidth( "900px" );
+        w.setHeight( "400px" );
+        w.appendChild( logField );
+        w.doModal();
+    }
+    
+    /**
+     * log
+     * 
+     * @param e Event
+     */
+    private void log( Event e ){
+        logField.setText( LogUtilities.getInstance().tail() );
+    }
     
     /**
      * initComponents
@@ -126,20 +156,30 @@ public class StatmentPane
         typeField.setElements( StatmentData.Type.values() );
         typeField.setSelectedElement( StatmentData.Type.MIXED );
         
-        sqlField.setWidth( "100%" );
-        sqlField.setRows( 4 );
+        logField.setWidth( "100%" );
+        logField.setHeight( "100%" );
+        logField.setDisabled( true );
+        logField.setRows( 4 );
         
         fireAction.setStyle( "width: 35px; cursor: pointer; float: left;" );
+        logAction.setStyle( "width: 35px; cursor: pointer; float: left;" );
         
         timeoutBox.setVisible( false );
         timeoutLabel.setVisible( false );
         
-        addRow( typeLabel, typeField, quantidadeLabel, quantidadeBox, timeoutLabel, timeoutBox, userLabel, userBox, fireAction );
+        addRow( typeLabel, typeField, quantidadeLabel, quantidadeBox, timeoutLabel, timeoutBox, userLabel, userBox, fireAction, logAction );
 
-        setWidths( "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100%" );
+        setWidths( "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100%" );
         
         typeField.addEventListener( org.zkoss.zk.ui.event.Events.ON_SELECT, this::onSelect );
         fireAction.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::doStatment );
+        logAction.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::showLog );
+        
+        Timer timer = new Timer( 500 );
+        timer.setRepeats( true );
+        timer.addEventListener( org.zkoss.zk.ui.event.Events.ON_TIMER, this::log );
+        timer.start();
+        appendChild( timer );
     }   
 
     private Label typeLabel         = new Label("Tipo: ");
@@ -147,11 +187,12 @@ public class StatmentPane
     private Label quantidadeLabel   = new Label("Quantidade: ");
     private Label timeoutLabel      = new Label("Timeout(s): ");
     
-    private Textbox sqlField        = new Textbox();
+    private Textbox logField        = new Textbox();
     private Intbox userBox          = new Intbox( 1 );
     private Intbox quantidadeBox    = new Intbox( 1 );
     private Intbox timeoutBox          = new Intbox( 60 );
     private Combobox<StatmentData.Type> typeField    = new Combobox();
     
     private Image fireAction = new Image( ResourceLocator.getImageResource( "core/tb_play.png" ) );
+    private Image logAction = new Image( ResourceLocator.getImageResource( "core/tb_inspect.png" ) );
 }

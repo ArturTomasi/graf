@@ -28,6 +28,7 @@ public class RequestController
     {
         try
         {
+            LogUtilities.getInstance().write( "http..." );
             HttpURLConnection con = (HttpURLConnection) new URL( base.host() + ":" + base.port() ).openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("User-Agent", "Mozilla/5.0" );

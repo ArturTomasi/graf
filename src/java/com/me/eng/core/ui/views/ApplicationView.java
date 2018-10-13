@@ -28,19 +28,19 @@
  */
 package com.me.eng.core.ui.views;
 
-import com.me.eng.core.application.ApplicationContext;
 import com.me.eng.core.data.StatmentData;
 import com.me.eng.core.ui.panes.StatmentPane;
 import com.me.eng.core.ui.util.Prompts;
+import com.me.eng.core.util.LogUtilities;
 import com.me.eng.core.util.RequestController;
 import com.me.eng.core.util.StatmentController;
 import com.me.eng.db.Base;
 import com.me.eng.db.Database;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zul.Borderlayout;
-import org.zkoss.zul.East;
+import org.zkoss.zul.Center;
+import org.zkoss.zul.Hbox;
 import org.zkoss.zul.North;
-import org.zkoss.zul.West;
 
 /**
  *
@@ -69,10 +69,10 @@ public class ApplicationView
     {
         StatmentData data = statmentPane.getData();
         
-        for ( int i = 0; i < data.getUser(); i++ )
+        for ( int i = 0; i <= data.getUser(); i++ )
         {
-            fireStatment( Base.DOCKER );
-            fireStatment( Base.VIRTUAL_MACHINE );
+            fireStatment( i, Base.DOCKER );
+            fireStatment( i, Base.VIRTUAL_MACHINE );
         }
         
         Prompts.info( "Executando..." );
@@ -83,7 +83,7 @@ public class ApplicationView
      * 
      * @param base Base
      */
-    private void fireStatment( Base base )
+    private void fireStatment( int user, Base base )
     {
         StatmentData data = statmentPane.getData();
         
@@ -92,7 +92,9 @@ public class ApplicationView
             try
             {
                 Database db = Database.getInstance( base );
-
+                
+                LogUtilities.getInstance().write( "Conectando ao " + base + "...." );
+                
                 try
                 {
                     switch ( data.getType() )
@@ -121,6 +123,8 @@ public class ApplicationView
 
                 finally
                 {
+                    LogUtilities.getInstance().write( "Disconenctando ao " + base + "...." );
+                    
                     db.release();
                 }
             }
@@ -131,6 +135,7 @@ public class ApplicationView
             }
         } );
         
+        t.setName( base.toString() + " - " + ( user + 1 ) );
         t.setDaemon( true );
         t.start();
     }
@@ -150,20 +155,34 @@ public class ApplicationView
         north.setCollapsible(true);
         north.appendChild( statmentPane );
         
-        East east = new East() ;
-        east.setWidth( "50%" );
-        east.setTitle( "Virtual Machine - srv002.fell.eng.br" );
-        east.appendChild( new com.me.eng.core .ui.panes.vm.DashboardPane() );
+//        East east = new East() ;
+//        east.setStyle( "width: 50%; height: 1600px; overflow: hidden;" );
+//        east.setTitle( "Virtual Machine" );
+//        east.appendChild( new com.me.eng.core .ui.panes.vm.DashboardPane() );
+//        
+//        West west = new West() ;
+//        west.setStyle( "width: 50%; height: 1600px; overflow: hidden;" );
+//        west.setTitle( "Docker" );
+//        west.appendChild( new com.me.eng.core.ui.panes.docker.DashboardPane() );
+//        
+//        Borderlayout content = new Borderlayout();
+//        content.setHeight( "1600px" );
+//        content.appendChild( west );
+//        content.appendChild( east );
+//        
+        Hbox box = new Hbox();
+        box.setWidth("100%" );
+        box.setHeight( "1600px" );
+        box.appendChild( new com.me.eng.core.ui.panes.docker.DashboardPane() );
+        box.appendChild( new com.me.eng.core.ui.panes.vm.DashboardPane() );
         
-        West west = new West() ;
-        west.setWidth( "50%" );
-        west.setTitle( "Docker - srv001.fell.eng.br" );
-        west.appendChild( new com.me.eng.core.ui.panes.docker.DashboardPane() );
-        
+        Center center = new Center();
+        center.setTitle( "Dashboard" );
+        center.setAutoscroll( true );
+        center.appendChild( box );
         
         borderlayout.appendChild( north );
-        borderlayout.appendChild( west );
-        borderlayout.appendChild( east );
+        borderlayout.appendChild( center );
         
         appendChild( borderlayout );
         

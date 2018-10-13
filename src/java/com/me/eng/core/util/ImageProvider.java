@@ -27,17 +27,21 @@ public class ImageProvider
             InputStream ip3 = ResourceLocator.getResourceAsStream( "/img/05.jpg" );
             InputStream ip4 = ResourceLocator.getResourceAsStream( "/img/07.jpg" );
             InputStream ip5 = ResourceLocator.getResourceAsStream( "/img/09.jpg" );
+            InputStream ip6 = ResourceLocator.getResourceAsStream( "/img/06.jpg" );
+            InputStream ip8 = ResourceLocator.getResourceAsStream( "/img/08.jpg" );
+            InputStream ip9 = ResourceLocator.getResourceAsStream( "/img/10.jpg" );
+            InputStream ip10 = ResourceLocator.getResourceAsStream( "/img/03.jpg" );
             
             IMG.put( 1,  ip1 );
             IMG.put( 2,  ip2 );
             IMG.put( 3,  ip3 );
             IMG.put( 4,  ip4 );
             IMG.put( 5,  ip5 );
-            IMG.put( 6,  ip1 );
-            IMG.put( 7,  ip2 );
-            IMG.put( 8,  ip3 );
-            IMG.put( 9,  ip4 );
-            IMG.put(10,  ip5 );
+            IMG.put( 6,  ip6 );
+            IMG.put( 7,  ip5 );
+            IMG.put( 8,  ip8 );
+            IMG.put( 9,  ip9 );
+            IMG.put(10,  ip10 );
         }
      
         catch ( Exception e )

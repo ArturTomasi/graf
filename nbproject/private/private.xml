@@ -3,41 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/domain/ConfigurationNode.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/apps/ApplicationUI.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/util/RequestController.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/META-INF/persistence.xml</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/panes/ApplicationViewMenu.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/panes/vm/DashboardPane.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/apps/DefaultApplicationUIPane.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/panes/ApplicationCaption.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/panes/docker/DashboardPane.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/schema/graf.sql</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/views/LauncherApplicationViewUI.java</file>
             <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/util/StatmentController.java</file>
-            <file>file:/home/artur/Projects/Graf/web/admin/administrator.jsp</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/apps/AdministratorApplicationUI.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/config/server.xml</file>
-            <file>file:/home/artur/Projects/Graf/web/inc/css/default.css</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/panes/StatmentPane.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/domain/Configuration.java</file>
-            <file>file:/home/artur/Projects/Graf/web/WEB-INF/config.properties</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/domain/TreecellRendererTypeVisitor.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/parts/ApplicationViewButton.java</file>
-            <file>file:/home/artur/Projects/Graf/web/WEB-INF/tags/application.tag</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/domain/Security.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/db/Database.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/domain/ConfigurationNodeImpl.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/db/Base.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/schema/install.sql</file>
-            <file>file:/home/artur/Projects/Graf/src/java/config/config.xml</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/apps/DefaultApplicationUIController.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/data/StatmentData.java</file>
             <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/views/ApplicationView.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/util/ImageProvider.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/application/ResourceLocator.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/util/FileUtils.java</file>
-            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/apps/LoginApplication.java</file>
+            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/util/RequestController.java</file>
+            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/db/Database.java</file>
+            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/ui/panes/StatmentPane.java</file>
+            <file>file:/home/artur/Projects/Graf/src/java/log/log.log</file>
+            <file>file:/home/artur/Projects/Graf/src/java/com/me/eng/core/util/LogUtilities.java</file>
         </group>
     </open-files>
 </project-private>

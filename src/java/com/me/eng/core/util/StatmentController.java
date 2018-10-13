@@ -15,9 +15,19 @@ import java.sql.PreparedStatement;
  */
 public class StatmentController {
     
+    /**
+     * doStatment
+     * 
+     * @param data StatmentData
+     * @param db Database
+     * @throws Exception
+     */
     public static void doStatment( StatmentData data, Database db ) throws Exception
     {
+        
         String sql = "insert into per_1 values ( MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), ?, ?, ?, ?, ? )";
+        
+        LogUtilities.getInstance().write( sql );
         
         PreparedStatement ps = db.getPreparedStatement( sql ); 
         
@@ -37,9 +47,15 @@ public class StatmentController {
             ps.close();
         }
         
-        db.query( "select text_1 from per_1" );
+        sql = "select * from per_1";
+                
+        LogUtilities.getInstance().write( sql );
+        
+        db.query( sql  );
         
         sql = "insert into per_2 values ( MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), ?, ?, ?, ?, ? )";
+        
+        LogUtilities.getInstance().write( sql );
         
         ps = db.getPreparedStatement( sql ); 
         
@@ -59,6 +75,11 @@ public class StatmentController {
             ps.close();
         }
         
-        db.query( "select text_2 from per_2" );
+        sql = "select * from per_2";
+        
+        LogUtilities.getInstance().write( sql );
+        
+        db.query( sql );
+        
     }
 }
