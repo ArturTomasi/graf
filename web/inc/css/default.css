@@ -595,6 +595,10 @@ body, html
     opacity: 1!important;
     cursor: default!important;
     line-height: 30px;
+    white-space: pre;
+    overflow-x: auto;
+    word-break: break-all;
+    font-family: monospace;
 }
 
 .z-modal-mask{

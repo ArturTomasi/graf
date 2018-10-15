@@ -135,7 +135,7 @@ public class LogUtilities {
         Date dt = new java.sql.Date(System.currentTimeMillis());
 
         return _df.format(dt) + ": "
-                + String.format("%-25s", Thread.currentThread().getName()) + ": " + action + System.lineSeparator();
+                + String.format("%-22s", Thread.currentThread().getName()) + ": " + action + System.lineSeparator();
     }
 
     /**
@@ -149,11 +149,14 @@ public class LogUtilities {
     /**
      * clear
      *
+     * @throws java.io.FileNotFoundException
      */
-    private void clear() throws FileNotFoundException {
-        try (PrintWriter writer = new PrintWriter(_log)) {
-            writer.print("");
-            writer.close();
+    public void clear() throws FileNotFoundException {
+        synchronized ( _log ){
+            try (PrintWriter writer = new PrintWriter(_log)) {
+                writer.print("");
+                writer.close();
+            }
         }
     }
 

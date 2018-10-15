@@ -19,6 +19,7 @@
  */
 package com.me.eng.core.application;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import org.apache.commons.io.IOUtils;
@@ -140,5 +141,17 @@ public class ResourceLocator
     public static InputStream getResourceAsStream( String path ) throws Exception
     {
         return ResourceLocator.class.getResourceAsStream( path );
+    }
+    
+    /**
+     * getResourceAsFile
+     * 
+     * @param path String
+     * @return File
+     * @throws Exception
+     */
+    public static File getResourceAsFile( String path ) throws Exception
+    {
+        return new File( ResourceLocator.class.getResource( path ).toURI() );
     }
 }

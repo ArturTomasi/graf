@@ -6,6 +6,9 @@
 package com.me.eng.core.util;
 
 import com.me.eng.core.application.ResourceLocator;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,37 +19,63 @@ import java.util.Map;
  */
 public class ImageProvider 
 {
-    public final static Map<Integer, InputStream> IMG = new HashMap();
+    private static Map<Integer, File> _img = new HashMap();
     
     static 
     {
         try
         {
-            InputStream ip1 = ResourceLocator.getResourceAsStream( "/img/01.jpg" );
-            InputStream ip2 = ResourceLocator.getResourceAsStream( "/img/02.jpg" );
-            InputStream ip3 = ResourceLocator.getResourceAsStream( "/img/05.jpg" );
-            InputStream ip4 = ResourceLocator.getResourceAsStream( "/img/07.jpg" );
-            InputStream ip5 = ResourceLocator.getResourceAsStream( "/img/09.jpg" );
-            InputStream ip6 = ResourceLocator.getResourceAsStream( "/img/06.jpg" );
-            InputStream ip8 = ResourceLocator.getResourceAsStream( "/img/08.jpg" );
-            InputStream ip9 = ResourceLocator.getResourceAsStream( "/img/10.jpg" );
-            InputStream ip10 = ResourceLocator.getResourceAsStream( "/img/03.jpg" );
+            File ip1 = ResourceLocator.getResourceAsFile( "/img/01.jpg" );
+            File ip2 = ResourceLocator.getResourceAsFile( "/img/02.jpg" );
+            File ip3 = ResourceLocator.getResourceAsFile( "/img/05.jpg" );
+            File ip4 = ResourceLocator.getResourceAsFile( "/img/07.jpg" );
+            File ip5 = ResourceLocator.getResourceAsFile( "/img/09.jpg" );
+            File ip6 = ResourceLocator.getResourceAsFile( "/img/06.jpg" );
+            File ip8 = ResourceLocator.getResourceAsFile( "/img/08.jpg" );
+            File ip9 = ResourceLocator.getResourceAsFile( "/img/10.jpg" );
+            File ip10 = ResourceLocator.getResourceAsFile("/img/03.jpg" );
             
-            IMG.put( 1,  ip1 );
-            IMG.put( 2,  ip2 );
-            IMG.put( 3,  ip3 );
-            IMG.put( 4,  ip4 );
-            IMG.put( 5,  ip5 );
-            IMG.put( 6,  ip6 );
-            IMG.put( 7,  ip5 );
-            IMG.put( 8,  ip8 );
-            IMG.put( 9,  ip9 );
-            IMG.put(10,  ip10 );
+            _img.put( 1,  ip1 );
+            _img.put( 2,  ip2 );
+            _img.put( 3,  ip3 );
+            _img.put( 4,  ip4 );
+            _img.put( 5,  ip5 );
+            _img.put( 6,  ip6 );
+            _img.put( 7,  ip5 );
+            _img.put( 8,  ip8 );
+            _img.put( 9,  ip9 );
+            _img.put(10,  ip10 );
         }
      
         catch ( Exception e )
         {
             e.printStackTrace( System.err );
         }
+    }
+    
+    /**
+     * getStream
+     * 
+     * @param idx int
+     * @return InputStream
+     */
+    public static InputStream getStream( int idx ) {
+        try{
+            return new FileInputStream( _img.get( idx ) ); 
+        }
+        catch ( FileNotFoundException e ){
+            e.printStackTrace( System.err );
+            return null;
+        }
+    }
+    
+    /**
+     * getLength
+     * 
+     * @param idx int
+     * @return long
+     */
+    public static long getLength( int idx ) {
+        return _img.get( idx ).length();
     }
 }

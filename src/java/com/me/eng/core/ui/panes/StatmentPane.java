@@ -112,6 +112,7 @@ public class StatmentPane
      */
     private void doStatment( Event e )
     {
+         Executions.getCurrent().postEvent( new Event( Events.ON_STATMENT, this, getData() ) );
     }
     
     
@@ -131,8 +132,14 @@ public class StatmentPane
         w.setMinheight( 300 );
         w.setWidth( "900px" );
         w.setHeight( "400px" );
+        w.appendChild( clearLogAction );
         w.appendChild( logField );
         w.doModal();
+    }
+    
+    private void clear( Event e )throws Exception{
+        LogUtilities.getInstance().clear();
+        logField.setText( "" );
     }
     
     /**
@@ -162,8 +169,12 @@ public class StatmentPane
         logField.setRows( 4 );
         
         fireAction.setStyle( "width: 35px; cursor: pointer; float: left;" );
+        fireAction.setTooltiptext( "Executar" );
         logAction.setStyle( "width: 35px; cursor: pointer; float: left;" );
-        
+        logAction.setTooltiptext( "Ver logs das operações" );
+        clearLogAction.setStyle( "width: 24px; cursor: pointer; top: 5px; position: absolute; right: 100px" );
+        clearLogAction.setTooltiptext( "Limpar logs" );
+                
         timeoutBox.setVisible( false );
         timeoutLabel.setVisible( false );
         
@@ -174,6 +185,7 @@ public class StatmentPane
         typeField.addEventListener( org.zkoss.zk.ui.event.Events.ON_SELECT, this::onSelect );
         fireAction.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::doStatment );
         logAction.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::showLog );
+        clearLogAction.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::clear );
         
         Timer timer = new Timer( 500 );
         timer.setRepeats( true );
@@ -195,4 +207,5 @@ public class StatmentPane
     
     private Image fireAction = new Image( ResourceLocator.getImageResource( "core/tb_play.png" ) );
     private Image logAction = new Image( ResourceLocator.getImageResource( "core/tb_inspect.png" ) );
+    private Image clearLogAction = new Image( ResourceLocator.getImageResource( "core/tb_eraser.png" ) );
 }

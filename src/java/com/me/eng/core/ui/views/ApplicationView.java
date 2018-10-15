@@ -69,7 +69,7 @@ public class ApplicationView
     {
         StatmentData data = statmentPane.getData();
         
-        for ( int i = 0; i <= data.getUser(); i++ )
+        for ( int i = 0; i < data.getUser(); i++ )
         {
             fireStatment( i, Base.DOCKER );
             fireStatment( i, Base.VIRTUAL_MACHINE );
