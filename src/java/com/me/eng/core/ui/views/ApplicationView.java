@@ -91,42 +91,17 @@ public class ApplicationView
         {
             try
             {
-                Database db = Database.getInstance( base );
-                
-                LogUtilities.getInstance().write( "Conectando ao " + base + "...." );
-                
-                try
+                switch ( data.getType() )
                 {
-                    switch ( data.getType() )
-                    {
-//                        case COMMAND:
-//                            db.executeCommand( data.getSql() );
-//                        break;
-//
-//                        case QUERY:
-//                            db.query( data.getSql() );
-//                        break;
-//
-//                        case INSERT:
-//                            db.executeCommand( "call doWhile(" + data.getQuantidade() + ")");
-//                        break;
+                    case MIXED:
+                        StatmentController.doStatment( data, base );
+                    break;
 
-                        case MIXED:
-                            StatmentController.doStatment( data, db );
-                        break;
-
-                        case HTTP:
-                            RequestController.doRequest( data, base );
-                        break;
-                    }
+                    case HTTP:
+                        RequestController.doRequest( data, base );
+                    break;
                 }
 
-                finally
-                {
-                    LogUtilities.getInstance().write( "Disconenctando ao " + base + "...." );
-                    
-                    db.release();
-                }
             }
 
             catch ( Exception e )
@@ -155,21 +130,6 @@ public class ApplicationView
         north.setCollapsible(true);
         north.appendChild( statmentPane );
         
-//        East east = new East() ;
-//        east.setStyle( "width: 50%; height: 1600px; overflow: hidden;" );
-//        east.setTitle( "Virtual Machine" );
-//        east.appendChild( new com.me.eng.core .ui.panes.vm.DashboardPane() );
-//        
-//        West west = new West() ;
-//        west.setStyle( "width: 50%; height: 1600px; overflow: hidden;" );
-//        west.setTitle( "Docker" );
-//        west.appendChild( new com.me.eng.core.ui.panes.docker.DashboardPane() );
-//        
-//        Borderlayout content = new Borderlayout();
-//        content.setHeight( "1600px" );
-//        content.appendChild( west );
-//        content.appendChild( east );
-//        
         Hbox box = new Hbox();
         box.setWidth("100%" );
         box.setHeight( "1600px" );

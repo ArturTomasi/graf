@@ -100,7 +100,7 @@ public class LogUtilities {
                         line = line + 1;
                     }
                 }
-                if (line >= 1000) {
+                if (line >= 500) {
                     break;
                 }
                 sb.append((char) readByte);

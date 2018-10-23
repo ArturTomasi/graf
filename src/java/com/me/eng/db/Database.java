@@ -37,7 +37,7 @@ public class Database
         return db;
     }
     
-    private Connection connection;
+    private final Connection connection;
     private Statement statment;
     
     /**
@@ -50,7 +50,7 @@ public class Database
     {
         DriverManager.registerDriver( (Driver) Class.forName( base.drive() ).newInstance() );
 
-        if( connection == null || connection.isClosed() )
+//        if( connection == null || connection.isClosed() )
         {
             connection = DriverManager.getConnection( base.url(), base.user(), base.pwd() );
         }
@@ -63,9 +63,12 @@ public class Database
      */
     public void release() throws Exception
     {
-        if( connection != null && statment != null )
-        {   
-            statment.close();
+        synchronized ( connection )
+        {
+            if( connection != null && statment != null )
+            {   
+                statment.close();
+            }
         }
     }
     
@@ -77,11 +80,14 @@ public class Database
      */
     public void executeCommand( String sql ) throws Exception
     {
-        if( connection != null )
+        synchronized ( connection )
         {
-            statment = connection.createStatement();
-            
-            statment.execute( sql );
+            if( connection != null )
+            {
+                statment = connection.createStatement();
+
+                statment.execute( sql );
+            }
         }
     }
     
@@ -94,7 +100,10 @@ public class Database
      */
     public PreparedStatement getPreparedStatement( String sql ) throws Exception
     {
-        return connection.prepareStatement( sql );
+        synchronized ( connection )
+        {
+            return connection.prepareStatement( sql );
+        }
     }
     
     /**
@@ -106,10 +115,13 @@ public class Database
      */
     public ResultSet query( String sql ) throws Exception
     {
-        statment = connection.createStatement();
-        
-        ResultSet resultSet = statment.executeQuery( sql );
-        
-        return resultSet;
+        synchronized ( connection ) 
+        {
+            statment = connection.createStatement();
+
+            ResultSet resultSet = statment.executeQuery( sql );
+
+            return resultSet;
+        }
     }
 }
