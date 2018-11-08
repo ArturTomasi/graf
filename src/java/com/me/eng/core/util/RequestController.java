@@ -8,9 +8,11 @@ package com.me.eng.core.util;
 import com.me.eng.core.application.ApplicationContext;
 import com.me.eng.core.data.StatmentData;
 import com.me.eng.db.Base;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -28,14 +30,52 @@ public class RequestController
     {
         try
         {
-            LogUtilities.getInstance().write( " http..."  );
-    
-            HttpURLConnection con = (HttpURLConnection) new URL( base.host() + ":" + base.port() ).openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("User-Agent", "Mozilla/5.0" );
-            con.setConnectTimeout( data.getTimeout() * 1000 );
-            
-            con.getResponseCode();
+            for ( int i = 1; i <= data.getQuantidade(); i ++ )
+            {
+                try
+                {
+                    LogUtilities.getInstance().write( " #" + i + ": ciclo aberto" );
+                    
+                    try
+                    {
+                        LogUtilities.getInstance().write( " #" + i + ": Requisitando primeira imagem." );
+
+                        ImageIO.read( new URL( base.host() + ":" + base.port() + "/img/03.jpg") );
+
+                        LogUtilities.getInstance().write( " #" + i + ": " + "Primeira imagem recebida." );
+
+                    }
+
+                    catch ( Exception e )
+                    {
+                        LogUtilities.getInstance().write( e.getMessage() );
+
+                        ApplicationContext.getInstance().logException( e );
+                    }
+
+                    try
+                    {
+                        LogUtilities.getInstance().write( " #" + i + ": Requisitando segunda imagem" );
+
+                        ImageIO.read( new URL( base.host() + ":" + base.port() + "/img/06.jpg") );
+
+                        LogUtilities.getInstance().write( " #" + i + ": " + "Segunda imagem recebida." );
+
+                    }
+
+                    catch ( Exception e )
+                    {
+                        LogUtilities.getInstance().write( e.getMessage() );
+
+                        ApplicationContext.getInstance().logException( e );
+                    }
+                }
+                
+                finally
+                {
+                    LogUtilities.getInstance().write( " #" + i + ": ciclo fechado" );
+                }
+            }
         }
         
         catch ( IOException e )

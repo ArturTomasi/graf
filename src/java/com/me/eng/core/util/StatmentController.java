@@ -28,9 +28,10 @@ public class StatmentController {
     {
         try
         {
-            
             for ( int i = 1; i <= data.getQuantidade(); i ++ )
             {
+                LogUtilities.getInstance().write( " #" + i + ": ciclo aberto" );
+                
                 Database db = Database.getInstance( base );
 
                 try
@@ -122,11 +123,11 @@ public class StatmentController {
 
                     PreparedStatement ps = db.getPreparedStatement( sql ); 
 
-                    ps.setBinaryStream( 1, ImageProvider.getStream( 6 ), ImageProvider.getLength( 6 ) );
-                    ps.setBinaryStream( 2, ImageProvider.getStream( 7 ), ImageProvider.getLength( 7 ) );
-                    ps.setBinaryStream( 3, ImageProvider.getStream( 8 ), ImageProvider.getLength( 8 ) );
-                    ps.setBinaryStream( 4, ImageProvider.getStream( 9 ), ImageProvider.getLength( 9 ) );
-                    ps.setBinaryStream( 5, ImageProvider.getStream( 10 ), ImageProvider.getLength( 10 ) );
+                    ps.setBinaryStream( 1, ImageProvider.getStream( 1 ), ImageProvider.getLength( 1 ) );
+                    ps.setBinaryStream( 2, ImageProvider.getStream( 2 ), ImageProvider.getLength( 2 ) );
+                    ps.setBinaryStream( 3, ImageProvider.getStream( 3 ), ImageProvider.getLength( 3 ) );
+                    ps.setBinaryStream( 4, ImageProvider.getStream( 4 ), ImageProvider.getLength( 4 ) );
+                    ps.setBinaryStream( 5, ImageProvider.getStream( 5 ), ImageProvider.getLength( 5 ) );
 
                     try
                     {

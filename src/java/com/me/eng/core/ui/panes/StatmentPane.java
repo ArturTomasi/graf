@@ -123,6 +123,12 @@ public class StatmentPane
      */
     private void showLog( Event e )
     {
+        logField = new Textbox();
+        logField.setWidth( "100%" );
+        logField.setHeight( "100%" );
+        logField.setDisabled( true );
+        logField.setRows( 4 );
+        
         Window w = new Window( "Logs", "no", true );
         w.setParent( this );
         w.setBorder( false );

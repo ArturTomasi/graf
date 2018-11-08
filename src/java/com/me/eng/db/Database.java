@@ -6,16 +6,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author artur
  */
 public class Database
 {
-    private final static Map<Base, Database> instances = new HashMap();
-
     /**
      * getInstance
      * 
@@ -25,16 +21,7 @@ public class Database
      */
     public final static Database getInstance( Base b ) throws Exception
     {
-        Database db = instances.get( b );
-        
-        if ( db == null )
-        {
-            db = new Database( b );
-            
-            instances.put( b, db );
-        }
-        
-        return db;
+        return new Database( b );
     }
     
     private final Connection connection;
@@ -68,6 +55,7 @@ public class Database
             if( connection != null && statment != null )
             {   
                 statment.close();
+                connection.close();
             }
         }
     }
