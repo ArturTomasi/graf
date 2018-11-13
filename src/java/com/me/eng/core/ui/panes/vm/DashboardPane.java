@@ -86,22 +86,22 @@ public class DashboardPane
         Iframe i8= new Iframe( "http://srv003.fell.eng.br:3000/d-solo/TCDlXI1ik/zabbix-ambiente-total-zabbix-brasil-oficial-c?refresh=1s&orgId=1&panelId=46" );
         i8.setStubonly(true);
         i8.setWidth( "100%" );
-        i8.setHeight( "200px" );
+        i8.setHeight( "250px" );
         
         Iframe i9 = new Iframe( "http://srv003.fell.eng.br:3000/d-solo/TCDlXI1ik/zabbix-ambiente-total-zabbix-brasil-oficial-c?refresh=1s&orgId=1&panelId=47" );
         i9.setStubonly(true);
         i9.setWidth( "100%" );
-        i9.setHeight( "200px" );
+        i9.setHeight( "250px" );
         
         Iframe i10 = new Iframe( "http://srv003.fell.eng.br:3000/d-solo/TCDlXI1ik/zabbix-ambiente-total-zabbix-brasil-oficial-c?refresh=1s&orgId=1&panelId=61" );
         i10.setStubonly(true);
         i10.setWidth( "100%" );
-        i10.setHeight( "200px" );
+        i10.setHeight( "250px" );
         
         Iframe i11 = new Iframe( "http://srv003.fell.eng.br:3000/d-solo/TCDlXI1ik/zabbix-ambiente-total-zabbix-brasil-oficial-c?refresh=1s&orgId=1&panelId=53" );
         i11.setStubonly(true);
         i11.setWidth( "100%" );
-        i11.setHeight( "200px" );
+        i11.setHeight( "250px" );
         
         appendChild( i1 );
         appendChild( i2 );

@@ -65,17 +65,28 @@ public class ApplicationView
      * doStatment
      * 
      */
-    private void doStatment( Event evt )
+    private void doDockerStatment( Event evt )
     {
         StatmentData data = statmentPane.getData();
         
         for ( int i = 0; i < data.getUser(); i++ )
         {
             fireStatment( i, Base.DOCKER );
+        }
+        
+        Prompts.info( "Executando DOCKER..." );
+    }
+    
+    private void doVmStatment( Event evt )
+    {
+        StatmentData data = statmentPane.getData();
+        
+        for ( int i = 0; i < data.getUser(); i++ )
+        {
             fireStatment( i, Base.VIRTUAL_MACHINE );
         }
         
-        Prompts.info( "Executando..." );
+        Prompts.info( "Executando VIRTUAL MACHINE..." );
     }
     
     /**
@@ -110,7 +121,7 @@ public class ApplicationView
             }
         } );
         
-        t.setName( base.toString() + " - " + ( user + 1 ) );
+        t.setName( base.toString() + " - USUARIO " + ( user + 1 ) );
         t.setDaemon( true );
         t.start();
     }
@@ -132,7 +143,7 @@ public class ApplicationView
         
         Hbox box = new Hbox();
         box.setWidth("100%" );
-        box.setHeight( "1600px" );
+        box.setHeight( "1800px" );
         box.appendChild( new com.me.eng.core.ui.panes.docker.DashboardPane() );
         box.appendChild( new com.me.eng.core.ui.panes.vm.DashboardPane() );
         
@@ -146,7 +157,8 @@ public class ApplicationView
         
         appendChild( borderlayout );
         
-        statmentPane.addEventListener( StatmentPane.Events.ON_STATMENT, this::doStatment );
+        statmentPane.addEventListener( StatmentPane.Events.ON_DOCKER_STATMENT, this::doDockerStatment );
+        statmentPane.addEventListener( StatmentPane.Events.ON_VM_STATMENT,     this::doVmStatment );
     }
     
     private StatmentPane statmentPane = new StatmentPane();

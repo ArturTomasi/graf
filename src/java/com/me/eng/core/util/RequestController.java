@@ -34,46 +34,43 @@ public class RequestController
             {
                 try
                 {
-                    LogUtilities.getInstance().write( " #" + i + ": ciclo aberto" );
+                    LogUtilities.getInstance().write( i, "ciclo aberto" );
+                    LogUtilities.getInstance().write( i, "Requisitando " + base.host() + ":" + base.port() );
                     
                     try
                     {
-                        LogUtilities.getInstance().write( " #" + i + ": Requisitando primeira imagem." );
+                        LogUtilities.getInstance().write( i, "Requisitando primeira imagem." );
 
                         ImageIO.read( new URL( base.host() + ":" + base.port() + "/img/03.jpg") );
 
-                        LogUtilities.getInstance().write( " #" + i + ": " + "Primeira imagem recebida." );
+                        LogUtilities.getInstance().write( i, "Primeira imagem recebida." );
 
                     }
 
                     catch ( Exception e )
                     {
-                        LogUtilities.getInstance().write( e.getMessage() );
-
-                        ApplicationContext.getInstance().logException( e );
+                        LogUtilities.getInstance().write( i, e.getMessage() );
                     }
 
                     try
                     {
-                        LogUtilities.getInstance().write( " #" + i + ": Requisitando segunda imagem" );
+                        LogUtilities.getInstance().write( i, "Requisitando segunda imagem" );
 
                         ImageIO.read( new URL( base.host() + ":" + base.port() + "/img/06.jpg") );
 
-                        LogUtilities.getInstance().write( " #" + i + ": " + "Segunda imagem recebida." );
+                        LogUtilities.getInstance().write( i, "Segunda imagem recebida." );
 
                     }
 
                     catch ( Exception e )
                     {
-                        LogUtilities.getInstance().write( e.getMessage() );
-
-                        ApplicationContext.getInstance().logException( e );
+                         LogUtilities.getInstance().write( i, e.getMessage() );
                     }
                 }
                 
                 finally
                 {
-                    LogUtilities.getInstance().write( " #" + i + ": ciclo fechado" );
+                    LogUtilities.getInstance().write( i, "ciclo fechado" );
                 }
             }
         }

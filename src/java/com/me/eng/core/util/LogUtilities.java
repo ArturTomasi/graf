@@ -71,8 +71,8 @@ public class LogUtilities {
      * @param action String
      * @throws IOException
      */
-    public void write(String action) throws IOException {
-        Files.write(_log.toPath(), format(action).getBytes(), StandardOpenOption.APPEND);
+    public void write(int qtnd, String action) throws IOException {
+        Files.write(_log.toPath(), format(qtnd, action).getBytes( "UTF-8" ), StandardOpenOption.APPEND);
     }
 
     /**
@@ -131,11 +131,11 @@ public class LogUtilities {
      * @param t Thread
      * @return String
      */
-    private String format(String action) {
+    private String format(int qntd, String action) {
         Date dt = new java.sql.Date(System.currentTimeMillis());
 
         return _df.format(dt) + ": "
-                + String.format("%-22s", Thread.currentThread().getName()) + ": " + action + System.lineSeparator();
+                + Thread.currentThread().getName() + " - QUANTIDADE " + qntd + ": " + action + System.lineSeparator();
     }
 
     /**

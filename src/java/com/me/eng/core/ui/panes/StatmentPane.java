@@ -36,6 +36,7 @@ import com.me.eng.core.ui.selectors.Combobox;
 import com.me.eng.core.util.LogUtilities;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
@@ -53,7 +54,8 @@ public class StatmentPane
 {
     public static class Events
     {
-        public static final String ON_STATMENT = "onStatment";
+        public static final String ON_DOCKER_STATMENT = "onDockerStatment";
+        public static final String ON_VM_STATMENT = "onVmStatment";
     }
     
     /**
@@ -110,9 +112,14 @@ public class StatmentPane
      * 
      * @param e Event
      */
-    private void doStatment( Event e )
+    private void doVMStatment( Event e )
     {
-         Executions.getCurrent().postEvent( new Event( Events.ON_STATMENT, this, getData() ) );
+         Executions.getCurrent().postEvent( new Event( Events.ON_VM_STATMENT, this, getData() ) );
+    }
+    
+    private void doDockerStatment( Event e )
+    {
+         Executions.getCurrent().postEvent( new Event( Events.ON_DOCKER_STATMENT, this, getData() ) );
     }
     
     
@@ -174,9 +181,20 @@ public class StatmentPane
         logField.setDisabled( true );
         logField.setRows( 4 );
         
-        fireAction.setStyle( "width: 35px; cursor: pointer; float: left;" );
-        fireAction.setTooltiptext( "Executar" );
-        logAction.setStyle( "width: 35px; cursor: pointer; float: left;" );
+        Image fireDockerAction = new Image( ResourceLocator.getImageResource( "core/tb_play.png" ) );
+        fireDockerAction.setStyle( "width: 35px; cursor: pointer; float: left;" );
+        
+        Image dockerAction = new Image( ResourceLocator.getImageResource( "core/sb_docker.png" ) );
+        dockerAction.setStyle( "width: 25px; cursor: pointer; float: left; margin-left: 25px; margin-top: -40px" );
+        
+        Image fireVmAction = new Image( ResourceLocator.getImageResource( "core/tb_play.png" ) );
+        fireVmAction.setStyle( "width: 35px; cursor: pointer; float: left;" );
+        
+        Image vmAction = new Image( ResourceLocator.getImageResource( "core/sb_vm.png" ) );
+        vmAction.setStyle( "width: 25px; cursor: pointer; float: left; margin-left: 25px; margin-top: -40px" );
+        
+        
+        logAction.setStyle( "width: 35px; cursor: pointer; float: left; margin-left: 10px;" );
         logAction.setTooltiptext( "Ver logs das operações" );
         clearLogAction.setStyle( "width: 24px; cursor: pointer; top: 5px; position: absolute; right: 100px" );
         clearLogAction.setTooltiptext( "Limpar logs" );
@@ -184,12 +202,27 @@ public class StatmentPane
         timeoutBox.setVisible( false );
         timeoutLabel.setVisible( false );
         
-        addRow( typeLabel, typeField, quantidadeLabel, quantidadeBox, timeoutLabel, timeoutBox, userLabel, userBox, fireAction, logAction );
+        Div docker = new Div();
+        docker.setStyle( "cursor: pointer" );
+        docker.appendChild( fireDockerAction );
+        docker.appendChild( dockerAction );
+        docker.setTooltiptext( "Executar Docker" );
+                
+        
+        Div vm = new Div();
+        vm.setStyle( "cursor: pointer" );
+        vm.appendChild( fireVmAction );
+        vm.appendChild( vmAction );
+        vm.setTooltiptext( "Executar Virtual Machine" );
+                
+        
+        addRow( typeLabel, typeField, quantidadeLabel, quantidadeBox, timeoutLabel, timeoutBox, userLabel, userBox, docker, vm, logAction );
 
-        setWidths( "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100%" );
+        setWidths( "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100%" );
         
         typeField.addEventListener( org.zkoss.zk.ui.event.Events.ON_SELECT, this::onSelect );
-        fireAction.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::doStatment );
+        docker.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::doDockerStatment );
+        vm.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::doVMStatment );
         logAction.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::showLog );
         clearLogAction.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::clear );
         
@@ -211,7 +244,6 @@ public class StatmentPane
     private Intbox timeoutBox          = new Intbox( 60 );
     private Combobox<StatmentData.Type> typeField    = new Combobox();
     
-    private Image fireAction = new Image( ResourceLocator.getImageResource( "core/tb_play.png" ) );
     private Image logAction = new Image( ResourceLocator.getImageResource( "core/tb_inspect.png" ) );
     private Image clearLogAction = new Image( ResourceLocator.getImageResource( "core/tb_eraser.png" ) );
 }

@@ -30,7 +30,7 @@ public class StatmentController {
         {
             for ( int i = 1; i <= data.getQuantidade(); i ++ )
             {
-                LogUtilities.getInstance().write( " #" + i + ": ciclo aberto" );
+                LogUtilities.getInstance().write( i, " ciclo aberto" );
                 
                 Database db = Database.getInstance( base );
 
@@ -38,7 +38,7 @@ public class StatmentController {
                 {
                     String sql = "insert into per_1 values ( MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), ?, ?, ?, ?, ? )";
 
-                    LogUtilities.getInstance().write( " #" + i + ": " + sql );
+                    LogUtilities.getInstance().write( i, sql );
 
                     PreparedStatement ps = db.getPreparedStatement( sql ); 
 
@@ -55,7 +55,7 @@ public class StatmentController {
 
                     catch ( SQLException e )
                     {
-                        LogUtilities.getInstance().write( "ERROR: " + e.getMessage() );
+                        LogUtilities.getInstance().write( i, e.getMessage() );
                     }
 
                     finally
@@ -66,7 +66,7 @@ public class StatmentController {
 
                 catch ( Exception e )
                 {
-                    LogUtilities.getInstance().write( "ERROR: " + e.getMessage() );
+                    LogUtilities.getInstance().write( i, e.getMessage() );
                 }
 
                 finally
@@ -83,7 +83,7 @@ public class StatmentController {
                     
                     String sql = "select img_01, text_1 from per_1";
                     
-                    LogUtilities.getInstance().write( " #" + i + ": " + sql );
+                    LogUtilities.getInstance().write(  i, sql );
                   
                     PreparedStatement ps = db.getPreparedStatement( sql ); 
                     
@@ -103,7 +103,7 @@ public class StatmentController {
 
                 catch ( Exception e )
                 {
-                    LogUtilities.getInstance().write( "ERROR: " + e.getMessage() );
+                    LogUtilities.getInstance().write( i, e.getMessage() );
                 }
 
                 finally
@@ -119,7 +119,7 @@ public class StatmentController {
                 {
                     String sql = "insert into per_2 values ( MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), MD5(RAND()), ?, ?, ?, ?, ? )";
 
-                    LogUtilities.getInstance().write( " #" + i + ": " + sql );
+                    LogUtilities.getInstance().write(  i, sql );
 
                     PreparedStatement ps = db.getPreparedStatement( sql ); 
 
@@ -136,13 +136,13 @@ public class StatmentController {
 
                     catch ( SQLException e )
                     {
-                       LogUtilities.getInstance().write(  "ERROR: " + e.getMessage() );
+                       LogUtilities.getInstance().write( i, ": " + e.getMessage() );
                     }
                 }
 
                 catch ( Exception e )
                 {
-                    LogUtilities.getInstance().write( "ERROR: " + e.getMessage() );
+                    LogUtilities.getInstance().write( i, e.getMessage() );
                 }
 
                 finally
@@ -158,7 +158,7 @@ public class StatmentController {
                 {
                     String sql = "select img_01, text_1 from per_2";
                     
-                    LogUtilities.getInstance().write( " #" + i + ": " + sql );
+                    LogUtilities.getInstance().write( i, sql );
                   
                     PreparedStatement ps = db.getPreparedStatement( sql ); 
                     
@@ -177,7 +177,7 @@ public class StatmentController {
 
                 catch ( Exception e )
                 {
-                    LogUtilities.getInstance().write( "ERROR: " + e.getMessage() );
+                    LogUtilities.getInstance().write( i, e.getMessage() );
                 }
 
                 finally
@@ -187,7 +187,7 @@ public class StatmentController {
                     Thread.sleep(50);
                 }
                 
-                LogUtilities.getInstance().write( " #" + i + ": ciclo fechado" );
+                LogUtilities.getInstance().write( i, "ciclo fechado" );
             }
         }
         
@@ -195,7 +195,7 @@ public class StatmentController {
         {
             try 
             {
-                LogUtilities.getInstance().write( "ERROR: " + e.getMessage() );
+                LogUtilities.getInstance().write( -1, e.getMessage() );
             }
             catch ( IOException ex ){
                 ex.printStackTrace( System.err );
