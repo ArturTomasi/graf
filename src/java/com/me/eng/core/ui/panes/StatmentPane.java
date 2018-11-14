@@ -55,7 +55,8 @@ public class StatmentPane
     public static class Events
     {
         public static final String ON_DOCKER_STATMENT = "onDockerStatment";
-        public static final String ON_VM_STATMENT = "onVmStatment";
+        public static final String ON_VM_STATMENT     = "onVmStatment";
+        public static final String ON_STATMENT        = "onStatment";
     }
     
     /**
@@ -122,6 +123,10 @@ public class StatmentPane
          Executions.getCurrent().postEvent( new Event( Events.ON_DOCKER_STATMENT, this, getData() ) );
     }
     
+    private void doStatment( Event e )
+    {
+         Executions.getCurrent().postEvent( new Event( Events.ON_STATMENT, this, getData() ) );
+    }
     
     /**
      * showLog
@@ -192,7 +197,10 @@ public class StatmentPane
         
         Image vmAction = new Image( ResourceLocator.getImageResource( "core/sb_vm.png" ) );
         vmAction.setStyle( "width: 25px; cursor: pointer; float: left; margin-left: 25px; margin-top: -40px" );
+        vmAction.setTooltiptext( "Executar Docker e Virtual Machine Simultaneamente" );
         
+        Image fireAction = new Image( ResourceLocator.getImageResource( "core/tb_play.png" ) );
+        fireAction.setStyle( "width: 35px; cursor: pointer; float: left;" );
         
         logAction.setStyle( "width: 35px; cursor: pointer; float: left; margin-left: 10px;" );
         logAction.setTooltiptext( "Ver logs das operações" );
@@ -216,13 +224,15 @@ public class StatmentPane
         vm.setTooltiptext( "Executar Virtual Machine" );
                 
         
-        addRow( typeLabel, typeField, quantidadeLabel, quantidadeBox, timeoutLabel, timeoutBox, userLabel, userBox, docker, vm, logAction );
+        addRow( typeLabel, typeField, quantidadeLabel, quantidadeBox, timeoutLabel, timeoutBox, userLabel, userBox, fireAction, docker, vm, logAction );
 
-        setWidths( "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100%" );
+        setWidths( "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100%" );
         
         typeField.addEventListener( org.zkoss.zk.ui.event.Events.ON_SELECT, this::onSelect );
         docker.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::doDockerStatment );
         vm.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::doVMStatment );
+        fireAction.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::doStatment );
+        
         logAction.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::showLog );
         clearLogAction.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::clear );
         

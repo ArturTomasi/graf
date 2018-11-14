@@ -89,6 +89,19 @@ public class ApplicationView
         Prompts.info( "Executando VIRTUAL MACHINE..." );
     }
     
+    private void doStatment( Event evt )
+    {
+        StatmentData data = statmentPane.getData();
+        
+        for ( int i = 0; i < data.getUser(); i++ )
+        {
+            fireStatment( i, Base.VIRTUAL_MACHINE );
+            fireStatment( i, Base.DOCKER );
+        }
+        
+        Prompts.info( "Executando Simultaneamente..." );
+    }
+    
     /**
      * fireStatment
      * 
@@ -159,6 +172,7 @@ public class ApplicationView
         
         statmentPane.addEventListener( StatmentPane.Events.ON_DOCKER_STATMENT, this::doDockerStatment );
         statmentPane.addEventListener( StatmentPane.Events.ON_VM_STATMENT,     this::doVmStatment );
+        statmentPane.addEventListener( StatmentPane.Events.ON_STATMENT,        this::doStatment );
     }
     
     private StatmentPane statmentPane = new StatmentPane();

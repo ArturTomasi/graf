@@ -8,9 +8,7 @@ package com.me.eng.core.util;
 import com.me.eng.core.application.ApplicationContext;
 import com.me.eng.core.data.StatmentData;
 import com.me.eng.db.Base;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import javax.imageio.ImageIO;
 
