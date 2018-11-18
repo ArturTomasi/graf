@@ -75,7 +75,7 @@ public class StatmentPane
      */
     public StatmentData getData()
     {
-        return new StatmentData( logField.getText(), userBox.getValue(), quantidadeBox.getValue(), quantidadeBox.getValue(), typeField.getSelectedElement() );
+        return new StatmentData( logField.getText(), userBox.getValue(), quantidadeBox.getValue(), quantidadeBox.getValue(), paginasBox.getValue(), typeField.getSelectedElement() );
     }
     
     /**
@@ -96,11 +96,15 @@ public class StatmentPane
 //        sqlField.setVisible( typeField.getSelectedElement() != StatmentData.Type.INSERT && 
 //                             typeField.getSelectedElement() != StatmentData.Type.MIXED  &&
 //                             typeField.getSelectedElement() != StatmentData.Type.HTTP );
-        quantidadeBox.setVisible( typeField.getSelectedElement() == StatmentData.Type.MIXED );
+        
+        quantidadeBox.setVisible( typeField.getSelectedElement() == StatmentData.Type.MIXED  );
         quantidadeLabel.setVisible( typeField.getSelectedElement() == StatmentData.Type.MIXED );
         
         timeoutBox.setVisible( typeField.getSelectedElement() == StatmentData.Type.HTTP );
         timeoutLabel.setVisible( typeField.getSelectedElement() == StatmentData.Type.HTTP );
+        
+        paginasBox.setVisible( typeField.getSelectedElement() == StatmentData.Type.APACHE_AB );
+        paginasLabel.setVisible( typeField.getSelectedElement() == StatmentData.Type.APACHE_AB );
         
         logField.setVisible( typeField.getSelectedElement() != StatmentData.Type.MIXED  &&
                              typeField.getSelectedElement() != StatmentData.Type.HTTP );
@@ -197,10 +201,10 @@ public class StatmentPane
         
         Image vmAction = new Image( ResourceLocator.getImageResource( "core/sb_vm.png" ) );
         vmAction.setStyle( "width: 25px; cursor: pointer; float: left; margin-left: 25px; margin-top: -40px" );
-        vmAction.setTooltiptext( "Executar Docker e Virtual Machine Simultaneamente" );
         
         Image fireAction = new Image( ResourceLocator.getImageResource( "core/tb_play.png" ) );
         fireAction.setStyle( "width: 35px; cursor: pointer; float: left;" );
+        fireAction.setTooltiptext( "Executar Docker e Virtual Machine Simultaneamente" );
         
         logAction.setStyle( "width: 35px; cursor: pointer; float: left; margin-left: 10px;" );
         logAction.setTooltiptext( "Ver logs das operações" );
@@ -209,6 +213,9 @@ public class StatmentPane
                 
         timeoutBox.setVisible( false );
         timeoutLabel.setVisible( false );
+        
+        paginasBox.setVisible( false );
+        paginasLabel.setVisible( false );
         
         Div docker = new Div();
         docker.setStyle( "cursor: pointer" );
@@ -224,9 +231,9 @@ public class StatmentPane
         vm.setTooltiptext( "Executar Virtual Machine" );
                 
         
-        addRow( typeLabel, typeField, quantidadeLabel, quantidadeBox, timeoutLabel, timeoutBox, userLabel, userBox, fireAction, docker, vm, logAction );
+        addRow( typeLabel, typeField, quantidadeLabel, quantidadeBox, timeoutLabel, timeoutBox, userLabel, userBox, paginasLabel, paginasBox, fireAction, docker, vm, logAction );
 
-        setWidths( "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100%" );
+        setWidths( "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100%" );
         
         typeField.addEventListener( org.zkoss.zk.ui.event.Events.ON_SELECT, this::onSelect );
         docker.addEventListener( org.zkoss.zk.ui.event.Events.ON_CLICK, this::doDockerStatment );
@@ -245,13 +252,15 @@ public class StatmentPane
 
     private Label typeLabel         = new Label("Tipo: ");
     private Label userLabel         = new Label("Usuários: ");
+    private Label paginasLabel      = new Label("Páginas: ");
     private Label quantidadeLabel   = new Label("Quantidade: ");
     private Label timeoutLabel      = new Label("Timeout(s): ");
     
     private Textbox logField        = new Textbox();
     private Intbox userBox          = new Intbox( 1 );
     private Intbox quantidadeBox    = new Intbox( 1 );
-    private Intbox timeoutBox          = new Intbox( 60 );
+    private Intbox timeoutBox       = new Intbox( 60 );
+    private Intbox paginasBox       = new Intbox( 1 );
     private Combobox<StatmentData.Type> typeField    = new Combobox();
     
     private Image logAction = new Image( ResourceLocator.getImageResource( "core/tb_inspect.png" ) );

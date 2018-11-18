@@ -25,23 +25,33 @@ public class StatmentData
                 return "HTTP - GET";
             }
             
+        },
+        
+        APACHE_AB(){
+            @Override
+            public String toString() {
+                return "APACHE AB";
+            }
         }
     }
     
     private String sql;
     private int user;
     private int quantidade;
+    private int paginas;
     private int timeout;
     private Type type;
 
-    public StatmentData( String sql, int user, int quantidade, int timeout, Type type )
+    public StatmentData(String sql, int user, int quantidade, int timeout, int paginas, Type type) 
     {
         this.sql = sql;
         this.user = user;
         this.quantidade = quantidade;
+        this.paginas = paginas;
         this.timeout = timeout;
         this.type = type;
     }
+
 
     public String getSql() {
         return sql;
@@ -81,5 +91,13 @@ public class StatmentData
 
     public void setTimeout(int timeout) {
         this.timeout = timeout;
+    }
+
+    public int getPaginas() {
+        return paginas;
+    }
+
+    public void setPaginas(int paginas) {
+        this.paginas = paginas;
     }
 }

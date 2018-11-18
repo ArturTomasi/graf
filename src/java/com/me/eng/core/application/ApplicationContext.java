@@ -205,5 +205,7 @@ public class ApplicationContext
     public void logException( Throwable e )
     {
         Logger.getGlobal().log( Level.SEVERE, null, e );
+        
+        e.printStackTrace( System.err );
     }
 }

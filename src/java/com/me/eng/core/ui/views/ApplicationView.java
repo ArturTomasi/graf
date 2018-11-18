@@ -31,11 +31,10 @@ package com.me.eng.core.ui.views;
 import com.me.eng.core.data.StatmentData;
 import com.me.eng.core.ui.panes.StatmentPane;
 import com.me.eng.core.ui.util.Prompts;
-import com.me.eng.core.util.LogUtilities;
+import com.me.eng.core.util.ApacheAbController;
 import com.me.eng.core.util.RequestController;
 import com.me.eng.core.util.StatmentController;
 import com.me.eng.db.Base;
-import com.me.eng.db.Database;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zul.Borderlayout;
 import org.zkoss.zul.Center;
@@ -69,9 +68,21 @@ public class ApplicationView
     {
         StatmentData data = statmentPane.getData();
         
-        for ( int i = 0; i < data.getUser(); i++ )
+        switch ( data.getType() )
         {
-            fireStatment( i, Base.DOCKER );
+            case APACHE_AB:
+            {
+                fireStatment( -1, Base.DOCKER );
+            }
+            break;
+            default:
+            {
+                for ( int i = 0; i < data.getUser(); i++ )
+                {
+                    fireStatment( i, Base.DOCKER );
+                }
+            }
+            break;
         }
         
         Prompts.info( "Executando DOCKER..." );
@@ -81,9 +92,21 @@ public class ApplicationView
     {
         StatmentData data = statmentPane.getData();
         
-        for ( int i = 0; i < data.getUser(); i++ )
+        switch ( data.getType() )
         {
-            fireStatment( i, Base.VIRTUAL_MACHINE );
+            case APACHE_AB:
+            {
+                fireStatment( -1, Base.VIRTUAL_MACHINE );
+            }
+            break;
+            default:
+            {
+                for ( int i = 0; i < data.getUser(); i++ )
+                {
+                    fireStatment( i, Base.VIRTUAL_MACHINE );
+                }
+            }
+            break;
         }
         
         Prompts.info( "Executando VIRTUAL MACHINE..." );
@@ -93,10 +116,24 @@ public class ApplicationView
     {
         StatmentData data = statmentPane.getData();
         
-        for ( int i = 0; i < data.getUser(); i++ )
+        switch ( data.getType() )
         {
-            fireStatment( i, Base.VIRTUAL_MACHINE );
-            fireStatment( i, Base.DOCKER );
+            case APACHE_AB:
+            {
+                
+                fireStatment( -1, Base.VIRTUAL_MACHINE );
+                fireStatment( -1, Base.DOCKER );
+            }
+            break;
+            default:
+            {
+                for ( int i = 0; i < data.getUser(); i++ )
+                {
+                    fireStatment( i, Base.VIRTUAL_MACHINE );
+                    fireStatment( i, Base.DOCKER );
+                }
+            }
+            break;
         }
         
         Prompts.info( "Executando Simultaneamente..." );
@@ -123,6 +160,10 @@ public class ApplicationView
 
                     case HTTP:
                         RequestController.doRequest( data, base );
+                    break;
+
+                    case APACHE_AB:
+                        ApacheAbController.doRequest( data, base );
                     break;
                 }
 
