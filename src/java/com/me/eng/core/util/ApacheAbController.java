@@ -30,7 +30,10 @@ public class ApacheAbController {
             
             LogUtilities.getInstance().write( -1, "Requisitando " + base.host() + ":" + base.port() );
             
-            ProcessBuilder builder = new ProcessBuilder( "ab", "-n", String.valueOf( data.getPaginas() * data.getUser() ) + "-c", String.valueOf( "50" ), "-k", base.host() + ":" + base.host() );
+            ProcessBuilder builder = new ProcessBuilder( "ab", 
+                                                        "-n", String.valueOf( data.getPaginas() * data.getUser() ), 
+                                                        "-c", String.valueOf( "50" ), 
+                                                        "-k", base.host() + ":" + base.host() + "/" );
             
             builder.redirectErrorStream( true );
             
