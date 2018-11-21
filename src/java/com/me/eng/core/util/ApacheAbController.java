@@ -33,7 +33,7 @@ public class ApacheAbController {
             ProcessBuilder builder = new ProcessBuilder( "ab", 
                                                         "-n", String.valueOf( data.getPaginas() * data.getUser() ), 
                                                         "-c", String.valueOf( "50" ), 
-                                                        "-k", base.host() + ":" + base.host() + "/" );
+                                                        "-k", base.host() + ":" + base.port() + "/" );
             
             builder.redirectErrorStream( true );
             
